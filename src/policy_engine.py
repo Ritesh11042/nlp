@@ -11,6 +11,8 @@ import re
 import string
 from typing import Dict, Set
 
+from .word_intelligence import ExtendedEmojiEngine
+
 POLICY_NAMES: Dict[int, str] = {
     0: "Minimal_Technical",
     1: "Aggressive_Social",
@@ -35,36 +37,18 @@ class DomainPolicyEngine:
 
     PUNCT_SCOPE_TERMINATORS: Set[str] = {".", ",", "!", "?", ";", ":", "(", ")", "[", "]", "-"}
 
-    EMOJI_MAP: Dict[str, str] = {
-        ":)": " [EMOJI_HAPPY] ",
-        ":-)": " [EMOJI_HAPPY] ",
-        ":(": " [EMOJI_SAD] ",
-        ":-(": " [EMOJI_SAD] ",
-        ":D": " [EMOJI_LAUGH] ",
-        ";)": " [EMOJI_WINK] ",
-        "❤️": " [EMOJI_LOVE] ",
-        "❤": " [EMOJI_LOVE] ",
-        "🔥": " [EMOJI_FIRE] ",
-        "👍": " [EMOJI_THUMBSUP] ",
-        "👎": " [EMOJI_THUMBSDOWN] ",
-        "😡": " [EMOJI_ANGRY] ",
-        "😢": " [EMOJI_CRY] ",
-        "😭": " [EMOJI_SOB] ",
-    }
-
     @classmethod
     def normalize_shared(cls, text: str) -> str:
         """
         Shared preprocessing step applied before policy-specific logic:
         - URL removal
-        - Standard emoticon and emoji normalization to token representations
+        - Comprehensive emoticon and emoji normalization via ExtendedEmojiEngine (80+ symbols)
         """
         if not isinstance(text, str) or not text.strip():
             return ""
 
-        # Normalize common emojis & emoticons
-        for emo, token in cls.EMOJI_MAP.items():
-            text = text.replace(emo, token)
+        # Normalize 80+ emojis & ASCII emoticons to standardized domain tokens
+        text = ExtendedEmojiEngine.normalize_text_emojis(text)
 
         # Strip URLs
         text = re.sub(r"https?://\S+|www\.\S+", "", text)

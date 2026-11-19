@@ -10,34 +10,25 @@
 ## 📌 Project Overview
 In standard NLP pipelines, text cleaning is treated as an immutable preliminary chore: lowercasing, stripping punctuation, and removing stopwords across the board. However, when heterogeneous text streams (such as biomedical literature, financial earnings reports, and social media tweets) are normalized with a single aggressive policy, vital domain signals are permanently destroyed.
 
-This project delivers an **Adaptive Preprocessing Selection Gateway** using **Meta-Learning**:
+This project delivers an **Adaptive Preprocessing Selection Gateway** with **Word Intelligence & Semantic Restoration**:
 1. **Micro-Batch Partitioner:** Embeds text batches using dense representations (`all-MiniLM-L6-v2`) and partitions them into semantic-syntactic micro-clusters via **Spherical K-Means** ($k=2-6$).
-2. **Local 9-D Profiler:** Calculates a label-free statistical signature per micro-cluster:
-   - Type-Token Ratio (TTR)
-   - Uppercase Ratio (Acronyms, Case)
-   - Digit Density (Financial metrics, decimals, percentages)
-   - Punctuation Entropy (Informal text structure)
-   - POS Entropy (Syntactic variety)
-   - Dependency Depth (Syntactic complexity)
-   - Out-of-Vocabulary (OOV) Rate
-   - Subword / BPE Fragmentation
-   - Geometric Embedding Dispersion
+2. **Local 9-D Profiler:** Calculates a label-free statistical signature per micro-cluster (TTR, Upper Ratio, Digit Density, Punctuation Entropy, POS Entropy, Dependency Depth, OOV Rate, BPE Fragmentation, and Embedding Dispersion).
 3. **Surrogate Policy Router:** A calibrated **LightGBM 4-class classifier** predicts the optimal policy per cluster with high confidence.
-4. **Policy Engine:** Executes the selected policy:
-   - **$P_0$ Minimal / Technical:** Whitespace normalization only. Case, numbers, and symbols preserved.
-   - **$P_1$ Aggressive Social:** Lowercases, strips noise and handles (`@user`), removes punctuation.
-   - **$P_2$ Negation Shielded:** Scopes negation markers (`not`, `never`, `no`, `n't`) with `NOT_` prefix to protect polarity.
-   - **$P_3$ Biomedical Entity Preserving:** Protects hyphens (`Sprague-Dawley`, `ischemia-reperfusion`), gene/drug acronyms (`VEGFR2`), units, and chemical delimiters.
+4. **Policy Engine:** Executes the selected policy ($P_0$ Minimal, $P_1$ Aggressive Social, $P_2$ Negation Shielded, $P_3$ Biomedical Entity Preserving).
+5. **Extended Emoji & Emoticon Reader:** Decodes and normalizes over 80+ emojis and ASCII emoticons (faces, hearts, gestures, clinical symbols, financial tickers) into semantic domain tokens (`[EMOJI_HAPPY]`, `[EMOJI_STETHOSCOPE]`, `[EMOJI_CHART_UP]`, etc.).
+6. **Word Intelligence & Domain-Aware Spell Checker:** Intelligently classifies words into `VALID_STANDARD`, `DOMAIN_ENTITY` (protecting terms like `Ciprofloxacin`, `ramucirumab`, `EBITDA` from alteration), and `MISSPELLED` with contextual corrections.
+7. **Missing Word Gap Detector & Restorer:** Detects explicit mask placeholders (`<mask=...>`, `[MASK]`) or implicit grammatical gaps and predicts top candidate words.
 
 ---
 
 ## 📁 Repository Structure
 ```
-nlp project/
+nlp/
 │
 ├── src/
 │   ├── __init__.py               # Package exports
 │   ├── policy_engine.py          # Four interpretable policies (P0 to P3)
+│   ├── word_intelligence.py      # Emoji decoder, word classifier, spell check & gap detection
 │   ├── profiler.py               # 9-dimensional statistical meta-profiler
 │   ├── partitioner.py            # MiniLM dense embedding + Spherical K-Means
 │   ├── router.py                 # Calibrated LightGBM surrogate policy router
@@ -66,39 +57,18 @@ pip install -r requirements.txt
 ```
 
 ### 2. Run the Research Benchmark Suite
-Executes all experiments from the project report (Signal Retention, Stream Routing, Downstream Regret):
 ```bash
 python main.py
 ```
 
 ### 3. Launch the Interactive Web Demonstrator
-Start the Streamlit application:
 ```bash
 python -m streamlit run app.py
 ```
-Open your browser at `http://localhost:8501` to explore:
-- **Live Gateway Router:** Route custom or preset batches with live micro-clustering and cleaning.
-- **Signal Retention Lab:** Test text and inspect signal preservation rates across all 4 policies.
-- **9-D Profiler Visualizer:** Inspect extracted meta-profiles and alignment rules.
-- **Downstream Evaluation:** View normalized regret and Spearman rank correlation.
-- **Missing-Word Restoration:** Test masked token restoration.
-
----
-
-## 📊 Key Results (From Project Report)
-
-### Table 6.1: Signal Retention Rate by Policy
-| Signal (Domain) | $P_0$ Minimal | $P_1$ Aggressive Social | $P_2$ Negation Shield | $P_3$ Biomedical Entity |
-| :--- | :---: | :---: | :---: | :---: |
-| **Numeric integrity (Finance)** | **1.00** | 0.14 *(86% lost)* | 0.86 | **1.00** |
-| **Case retention (Biomedical)** | **1.00** | 0.00 *(100% lost)* | 0.00 | **1.00** |
-| **Hyphen-entity integrity (Biomedical)** | **1.00** | 0.00 *(100% lost)* | **1.00** | **1.00** |
-| **Negation scope marked (Social)** | 0.00 | 0.00 | **1.00** | 0.00 |
-| **@-handle removal (Social)** | 0.00 | **1.00** | 0.00 | 0.00 |
-
-### Table 6.2: Gateway Routing Decisions on Heterogeneous Stream
-| Input Domain | Sample Text Snippet | Assigned Cluster | Policy Chosen | Confidence |
-| :--- | :--- | :---: | :--- | :---: |
-| **Biomedical** | *Targeting of VEGFR2 signaling with ramucirumab...* | Cluster 2 | **$P_3$ Biomedical Entity** | **99.9%** |
-| **Financial** | *The company reported EUR 12.4M in pre-tax losses...* | Cluster 0 | **$P_0$ Minimal / Technical** | **99.9%** |
-| **Social** | *no way, this is absolutely unacceptable! never...* | Cluster 1 | **$P_1$ Aggressive Social** | **99.9%** |
+Open your browser at `http://localhost:8501` to access:
+- **Live Gateway Router:** Micro-clustering, 9-D profiling, and dynamic policy execution.
+- **Word Inspector & Spell Checker:** Right vs Wrong vs Domain Entity classification with error correction.
+- **Missing Word Detector & Restorer:** Missing token gap identification and ranked restoration.
+- **Extended Emoji Reader:** Test and decode 80+ emojis and ASCII emoticons.
+- **Signal Retention Lab:** Verify preservation rates matching Table 6.1.
+- **Downstream Evaluation:** View Normalized Regret and Spearman correlation.
