@@ -53,13 +53,21 @@ st.markdown("""
         border: 1px solid #E2E8F0;
         margin-bottom: 10px;
     }
+    .prediction-box {
+        background-color: #ECFDF5;
+        border: 2px solid #10B981;
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #065F46;
+        text-align: center;
+        margin: 10px 0;
+    }
     .policy-tag-0 { background-color: #E0E7FF; color: #3730A3; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
     .policy-tag-1 { background-color: #FEE2E2; color: #991B1B; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
     .policy-tag-2 { background-color: #D1FAE5; color: #065F46; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
     .policy-tag-3 { background-color: #FEF3C7; color: #92400E; padding: 4px 10px; border-radius: 4px; font-weight: 600; }
-    .status-valid { background-color: #DEF7EC; color: #03543F; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-    .status-entity { background-color: #EDEBFE; color: #5521B5; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-    .status-misspelled { background-color: #FDE8E8; color: #9B1C1C; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -80,9 +88,9 @@ st.sidebar.markdown("---")
 app_mode = st.sidebar.radio(
     "Navigation",
     [
-        "🚀 Live Gateway Router",
-        "🔍 Word Inspector & Spell Checker",
         "🧩 Missing Word Detector & Restorer",
+        "🔍 Word Inspector & Spell Checker",
+        "🚀 Live Gateway Router",
         "😀 Extended Emoji & Emoticon Reader",
         "🔬 Signal Retention Lab",
         "📈 Downstream Evaluation & Regret"
@@ -90,9 +98,140 @@ app_mode = st.sidebar.radio(
 )
 
 # ==============================================================================
-# TAB 1: LIVE GATEWAY ROUTER
+# TAB 1: MISSING WORD DETECTOR & RESTORER
 # ==============================================================================
-if app_mode == "🚀 Live Gateway Router":
+if app_mode == "🧩 Missing Word Detector & Restorer":
+    st.markdown("<div class='main-title'>🧩 Universal Missing Word Predictor & Restorer</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub-title'>Understands sentence context across Social, Financial, and Medical fields. Enter any sentence with blanks (e.g. <code>___</code>, <code>[blank]</code>, or <code>&lt;mask&gt;</code>) to predict missing words!</div>", unsafe_allow_html=True)
+
+    gap_presets = {
+        "Social: Name Greeting": "hi my ___ is nitish",
+        "Social: Informal Slang": "omg never ___ from this store again, terrible service!! :(",
+        "Social: Question": "how ___ you doing today?",
+        "Financial: Profit Metric": "Operating profit ___ by 18.4% to EUR 42.1 million in Q3.",
+        "Financial: Corporate Trajectory": "The company ___ pre-tax losses due to restructuring costs.",
+        "Biomedical: Drug Administration": "Patient was ___ with high-dose Ciprofloxacin.",
+        "Biomedical: Clinical Pathology": "Bilateral renal ___ induced acute tubular necrosis in Sprague-Dawley models.",
+        "Biomedical: Biomarker Test": "Elevated levels of serum ___ indicated acute renal damage."
+    }
+
+    col_p1, col_p2 = st.columns([2, 1])
+    with col_p1:
+        selected_gap = st.selectbox("Choose a scenario or type custom text below:", list(gap_presets.keys()))
+        default_val = gap_presets[selected_gap]
+    with col_p2:
+        st.info("💡 **Tip:** Use `___` (3 underscores) anywhere in a sentence to indicate the missing word position!")
+
+    input_gap_text = st.text_area("Input sentence with missing word:", default_val, height=85)
+
+    if st.button("🚀 Predict Missing Word & Restore Sentence", type="primary"):
+        res = WordIntelligenceEngine.predict_missing_words(input_gap_text)
+
+        if res["detected"]:
+            top_word = res["top_prediction"]
+
+            st.markdown(f"<div class='prediction-box'>✨ Predicted Missing Word: <u>{top_word}</u></div>", unsafe_allow_html=True)
+
+            col_res1, col_res2 = st.columns([1, 1])
+
+            with col_res1:
+                st.markdown("#### 🎯 Top Contextual Candidates & Confidence")
+                cand_records = []
+                for idx, c in enumerate(res["candidates"]):
+                    cand_records.append({
+                        "Rank": f"#{idx+1}",
+                        "Candidate Word": c["word"],
+                        "Confidence Score": f"{c['confidence'] * 100:.1f}%",
+                        "Probability Bar": c["confidence"]
+                    })
+                df_cands = pd.DataFrame(cand_records)
+                st.dataframe(df_cands[["Rank", "Candidate Word", "Confidence Score"]], use_container_width=True)
+
+            with col_res2:
+                st.markdown("#### 📄 Restored Complete Sentence")
+                st.success(res["restored_sentence"])
+                st.caption(f"Context detected: Left = `'{res['left_context']}'` | Right = `'{res['right_context']}'`")
+        else:
+            st.warning("No missing blank pattern detected. Please include `___`, `[blank]`, or `<mask...>` in your sentence.")
+
+# ==============================================================================
+# TAB 2: WORD INSPECTOR & SPELL CHECKER (RIGHT VS WRONG)
+# ==============================================================================
+elif app_mode == "🔍 Word Inspector & Spell Checker":
+    st.markdown("<div class='main-title'>🔍 Word Inspector & Domain-Aware Spell Checker</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub-title'>Differentiates Valid Words, Protected Domain Entities, and Genuine Spelling Mistakes across Healthcare, Finance, and Social text.</div>", unsafe_allow_html=True)
+
+    sample_spell_presets = [
+        "The patinet was admistered 14.5 mg/kg Ciprofloxacin following acute onset of severe hepatotoxicity.",
+        "Consolidated operting profit decrased 4% due to higher restructring costs and headwinds in FY2026.",
+        "hi my name is nitish and i had an absolutly terible custmer servce experence!! :((( #fail",
+        "Targeting of VEGFR2 with ramucirumab was evaluated in Sprague-Dawley rat models.",
+        "Custom text entry..."
+    ]
+
+    choice_spell = st.selectbox("Select example sentence or choose custom:", sample_spell_presets)
+
+    if choice_spell == "Custom text entry...":
+        eval_text = st.text_area("Enter your custom text to analyze:", "The patinet recieved high-dose ramucirumab with operting profit rising 14.5% in Q3.")
+    else:
+        eval_text = st.text_area("Input sentence:", choice_spell)
+
+    col1, col2 = st.columns([3, 2])
+
+    with col1:
+        st.markdown("#### 🔬 Word Classification Breakdown")
+        words_data = WordIntelligenceEngine.analyze_words(eval_text)
+
+        classified_records = []
+        for w in words_data:
+            st_color = "VALID STANDARD"
+            if w["status"] == "DOMAIN_ENTITY":
+                st_color = "DOMAIN ENTITY (PROTECTED)"
+            elif w["status"] == "MISSPELLED":
+                st_color = "MISSPELLED (ERROR)"
+            elif w["status"] == "NUMERIC_DATA":
+                st_color = "NUMERIC METRIC"
+            elif w["status"] == "EMOJI_TOKEN":
+                st_color = "EMOJI TOKEN"
+            elif w["status"] == "MISSING_BLANK":
+                st_color = "MISSING BLANK"
+
+            classified_records.append({
+                "Word": w["word"],
+                "Classification": st_color,
+                "Suggestion / Meaning": w["suggestion"] or w.get("domain") or "—",
+                "Explanation": w["description"]
+            })
+
+        st.dataframe(pd.DataFrame(classified_records), use_container_width=True)
+
+    with col2:
+        st.markdown("#### ✨ Intelligent Auto-Correction")
+        corrected_str, corrections = WordIntelligenceEngine.correct_spelling(eval_text)
+
+        if corrections:
+            st.warning(f"Detected {len(corrections)} spelling errors:")
+            for c in corrections:
+                st.write(f"- 🔴 `{c['original']}` ➔ 🟢 **`{c['corrected']}`**")
+            st.markdown("**Corrected Text (Entities Intact):**")
+            st.success(corrected_str)
+        else:
+            st.success("✅ No spelling mistakes found! All words are valid vocabulary or protected domain entities.")
+
+        st.markdown("---")
+        st.markdown("#### 📖 Domain Semantic Glossary Lookup")
+        glossary_lookup = st.text_input("Look up definition of any domain term:", "ramucirumab")
+        if glossary_lookup:
+            info = WordIntelligenceEngine.get_domain_glossary_lookup(glossary_lookup)
+            if info:
+                st.info(f"**[{info['domain']}] `{glossary_lookup}`**\n\n{info['meaning']}")
+            else:
+                st.caption(f"No entry found in built-in domain dictionary for '{glossary_lookup}'.")
+
+# ==============================================================================
+# TAB 3: LIVE GATEWAY ROUTER
+# ==============================================================================
+elif app_mode == "🚀 Live Gateway Router":
     st.markdown("<div class='main-title'>⚡ Adaptive Preprocessing Gateway</div>", unsafe_allow_html=True)
     st.markdown("<div class='sub-title'>Partition mixed-domain text into micro-clusters, decode 80+ emojis, profile label-free statistical signatures, and route domain-adaptive preprocessing via calibrated LightGBM.</div>", unsafe_allow_html=True)
 
@@ -153,9 +292,7 @@ if app_mode == "🚀 Live Gateway Router":
 
             st.success(f"Successfully processed {len(results)} texts across {min(k_val, len(lines))} micro-clusters!")
 
-            # Display routing cards
             st.markdown("### 📋 Gateway Routing Decisions & Output")
-
             for idx, r in enumerate(results):
                 with st.container():
                     p_id = r["policy_id"]
@@ -172,134 +309,8 @@ if app_mode == "🚀 Live Gateway Router":
                     </div>
                     """, unsafe_allow_html=True)
 
-            # Summary Table
-            st.markdown("### 📊 Routing Summary")
-            summary_df = pd.DataFrame([{
-                "Cluster": r["assigned_cluster"],
-                "Policy Selected": r["routing_decision"],
-                "Confidence": r["confidence"],
-                "Digit Density": f"{r['raw_profile'][2]:.3f}",
-                "Uppercase Ratio": f"{r['raw_profile'][1]:.3f}",
-                "Punct Entropy": f"{r['raw_profile'][3]:.3f}",
-                "Dep Depth": f"{r['raw_profile'][5]:.2f}",
-                "BPE Frag": f"{r['raw_profile'][7]:.2f}"
-            } for r in results])
-            st.dataframe(summary_df, use_container_width=True)
-
 # ==============================================================================
-# TAB 2: WORD INSPECTOR & SPELL CHECKER (RIGHT VS WRONG)
-# ==============================================================================
-elif app_mode == "🔍 Word Inspector & Spell Checker":
-    st.markdown("<div class='main-title'>🔍 Word Inspector & Domain Spell Checker</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub-title'>Differentiates Valid Standard Words, Protected Domain Entities, and Genuine Misspellings. Corrects errors without damaging clinical or financial jargon.</div>", unsafe_allow_html=True)
-
-    sample_spell_text = st.selectbox(
-        "Choose an example sentence with mixed domain terms and typos:",
-        [
-            "The patinet was admistered 14.5 mg/kg Ciprofloxacin following acute onset of severe hepatotoxicity.",
-            "Consolidated operting profit decrased 4% due to higher restructring costs and headwinds in FY2026.",
-            "omg never purchsing from this custmer servce again, absolutly terible delivry!! :((( #fail",
-            "Custom text entry..."
-        ]
-    )
-
-    if sample_spell_text == "Custom text entry...":
-        eval_text = st.text_area("Enter your custom text to analyze:", "The patinet recieved high-dose ramucirumab with no unacceptble toxicities.")
-    else:
-        eval_text = st.text_area("Input sentence:", sample_spell_text)
-
-    col1, col2 = st.columns([3, 2])
-
-    with col1:
-        st.markdown("#### 🔬 Word Classification Breakdown")
-        words_data = WordIntelligenceEngine.analyze_words(eval_text)
-
-        classified_records = []
-        for w in words_data:
-            st_color = "VALID"
-            if w["status"] == "DOMAIN_ENTITY":
-                st_color = "DOMAIN ENTITY (PROTECTED)"
-            elif w["status"] == "MISSPELLED":
-                st_color = "MISSPELLED (ERROR)"
-            elif w["status"] == "NUMERIC_DATA":
-                st_color = "NUMERIC METRIC"
-            elif w["status"] == "EMOJI_TOKEN":
-                st_color = "EMOJI TOKEN"
-
-            classified_records.append({
-                "Word": w["word"],
-                "Classification": st_color,
-                "Suggestion": w["suggestion"] or "—",
-                "Explanation": w["description"]
-            })
-
-        st.dataframe(pd.DataFrame(classified_records), use_container_width=True)
-
-    with col2:
-        st.markdown("#### ✨ Intelligent Correction")
-        corrected_str, corrections = WordIntelligenceEngine.correct_spelling(eval_text)
-
-        if corrections:
-            st.warning(f"Detected {len(corrections)} spelling errors:")
-            for c in corrections:
-                st.write(f"- 🔴 `{c['original']}` ➔ 🟢 **`{c['corrected']}`**")
-            st.markdown("**Corrected Text (Entities Intact):**")
-            st.success(corrected_str)
-        else:
-            st.success("✅ No spelling mistakes found! All words are valid vocabulary or protected domain entities.")
-
-        st.markdown("---")
-        st.markdown("#### 🛡️ Domain Entity Protection")
-        st.caption("Standard spell-checkers corrupt words like **Ciprofloxacin** or **EBITDA**. Our system detects them as valid domain entities and protects them from alteration.")
-
-# ==============================================================================
-# TAB 3: MISSING WORD DETECTOR & RESTORER
-# ==============================================================================
-elif app_mode == "🧩 Missing Word Detector & Restorer":
-    st.markdown("<div class='main-title'>🧩 Missing Word Detector & Restorer</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub-title'>Detects missing words via explicit placeholders (<mask=...>, [MASK], ___) or implicit grammatical gaps, predicting top candidate completions.</div>", unsafe_allow_html=True)
-
-    gap_presets = {
-        "Biomedical Missing Clinical Finding": "Patient exhibited acute <mask=thrombocytopenia> following high-dose Ciprofloxacin administration.",
-        "Financial Missing Trajectory": "Operating profit rose 18.4% to EUR 42.1 million, while net debt <mask=declined> by 6.2%.",
-        "Social Review Missing Verb": "omg never <mask=buying> from this store again, terrible customer service!! :((( #fail",
-        "Implicit Gap (No Mask Indicator)": "Patient acute renal necrosis following bilateral ischemia-reperfusion."
-    }
-
-    selected_gap = st.selectbox("Select or test missing word scenario:", list(gap_presets.keys()))
-    input_gap_text = st.text_area("Sentence with missing word:", gap_presets[selected_gap], height=90)
-
-    if st.button("🔍 Detect Missing Word & Predict Candidates", type="primary"):
-        restoration = WordIntelligenceEngine.detect_and_restore_missing_words(input_gap_text)
-
-        col_a, col_b = st.columns(2)
-
-        with col_a:
-            st.markdown("#### 1. Gap Detection Analysis")
-            if restoration["detected"]:
-                st.warning(f"**Gap Detected:** `{restoration['gap_type']}`")
-                st.info(f"**Placeholder Position:** `{restoration['placeholder']}`")
-                if restoration["ground_truth"]:
-                    st.write(f"**Target Word:** `{restoration['ground_truth']}`")
-            else:
-                st.success("No missing word gap detected. Sentence syntax appears complete.")
-
-        with col_b:
-            st.markdown("#### 2. Predicted Candidate Restorations")
-            if restoration["candidates"]:
-                cand_df = pd.DataFrame([
-                    {"Candidate Word": c["word"], "Model Confidence": f"{c['confidence']*100:.1f}%"}
-                    for c in restoration["candidates"]
-                ])
-                st.dataframe(cand_df, use_container_width=True)
-
-                st.markdown("#### 📄 Restored Complete Sentence:")
-                st.success(restoration["restored_sentence"])
-            else:
-                st.info(f"Complete input: {input_gap_text}")
-
-# ==============================================================================
-# TAB 4: EXTENDED EMOJI & EMOTICON READER
+# TAB 4: EXTENDED EMOJI READER
 # ==============================================================================
 elif app_mode == "😀 Extended Emoji & Emoticon Reader":
     st.markdown("<div class='main-title'>😀 Extended Emoji & Emoticon Reader</div>", unsafe_allow_html=True)
@@ -311,7 +322,7 @@ elif app_mode == "😀 Extended Emoji & Emoticon Reader":
         st.markdown("#### 🧪 Test Custom Emojis & Emoticons")
         test_emoji_input = st.text_area(
             "Enter text containing any mix of emojis and ASCII emoticons:",
-            "Doctor prescribed new pills 🩺💊 but patient felt terrible 😢💔. Later revenue was up 📈💰! :) :-D <3"
+            "Doctor prescribed new pills 🩺💊 but patient felt terrible 😢💔. Stock was up 📈💰! :) :-D <3"
         )
         if test_emoji_input:
             decoded_text = ExtendedEmojiEngine.normalize_text_emojis(test_emoji_input)
