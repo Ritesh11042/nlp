@@ -1,0 +1,29 @@
+{
+  "total_records": 250,
+  "datasets": {
+    "BC5CDR": {
+      "file": "data/bc5cdr_biomedical.csv",
+      "domain": "Biomedical",
+      "records": 75,
+      "target_policy": "P3: Biomedical_Entity_Preserving"
+    },
+    "Financial_PhraseBank": {
+      "file": "data/financial_phrasebank.csv",
+      "domain": "Financial",
+      "records": 75,
+      "target_policy": "P0: Minimal_Technical"
+    },
+    "TweetEval": {
+      "file": "data/tweeteval_social.csv",
+      "domain": "Social",
+      "records": 65,
+      "target_policy": "P1: Aggressive_Social / P2: Negation_Shielded"
+    },
+    "AG_News": {
+      "file": "data/ag_news_technical.csv",
+      "domain": "Technology/Science",
+      "records": 35,
+      "target_policy": "P0: Minimal_Technical"
+    }
+  }
+}

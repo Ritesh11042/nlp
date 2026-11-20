@@ -9,6 +9,15 @@ Demonstration Script for NLP Semantic Intelligence Features:
 
 from src.word_intelligence import ExtendedEmojiEngine, WordIntelligenceEngine
 from src.gateway import AdaptivePreprocessingGateway
+from src.dataset_loader import DatasetLoader
+
+print("=" * 75)
+print("0. REAL DOMAIN BENCHMARK DATASETS (LOADED FROM data/)")
+print("=" * 75)
+summary = DatasetLoader.get_summary()
+for d_key, d_info in summary.get("datasets", {}).items():
+    print(f"  • {d_key:<22}: {d_info['records']} records | Domain: {d_info['domain']} | Target: {d_info['target_policy']}")
+print(f"  Total Benchmark Pool: {summary.get('total_records', 250)} records across real domain corpora.\n")
 
 print("=" * 75)
 print("1. EXTENDED EMOJI & EMOTICON DECODING (80+ SYMBOLS)")
@@ -47,10 +56,11 @@ test_blanks = [
 for category, sentence in test_blanks:
     res = WordIntelligenceEngine.predict_missing_words(sentence)
     print(f"[{category}]")
-    print(f"  Input:    {sentence}")
-    print(f"  Predicted Missing Word: '{res['top_prediction']}'")
-    print(f"  Ranked Candidates:      {[c['word'] for c in res['candidates'][:3]]}")
-    print(f"  Restored Sentence:      {res['restored_sentence']}\n")
+    print(f"  Input:      {sentence}")
+    print(f"  Prediction: '{res['top_prediction']}'")
+    print(f"  Candidates: {[c['word'] for c in res['candidates'][:3]]}")
+    print(f"  Provenance: {res.get('provenance', 'Dataset N-Gram Model')}")
+    print(f"  Restored:   {res['restored_sentence']}\n")
 
 print("=" * 75)
 print("4. ADAPTIVE GATEWAY BATCH ROUTING")

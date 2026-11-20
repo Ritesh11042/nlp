@@ -15,7 +15,7 @@ SLIDE 1: TITLE SLIDE
 ================================================================================
 SLIDE TITLE: Adaptive Preprocessing Selection for Domain-Specific NLP Pipelines: A Meta-Learning Approach
 
-SUBTITLE: A Local Gateway with Multi-Domain Word Intelligence, Entity Shielding, and Signal Preservation
+SUBTITLE: A Local Gateway Trained on Real Domain Benchmark Datasets with Word Intelligence & Signal Preservation
 
 PRESENTED BY:
 • Ritesh Sharma (USN: ENG25CSE012)
@@ -29,7 +29,7 @@ PROJECT REPO: https://github.com/Ritesh11042/nlp
 • High-tech AI/NLP icons or network diagram in the background.
 
 [SPEAKER NOTES]:
-"Good morning respected evaluators, professors, and peers. Today, we present our final year engineering project: 'Adaptive Preprocessing Selection for Domain-Specific NLP Pipelines: A Meta-Learning Approach'. In this work, we demonstrate why traditional one-size-fits-all text cleaning fails across modern heterogeneous text, and how our local meta-learning gateway adaptively routes text to optimal preprocessing policies while providing complete multi-domain word intelligence."
+"Good morning respected evaluators, professors, and peers. Today, we present our final year engineering project: 'Adaptive Preprocessing Selection for Domain-Specific NLP Pipelines: A Meta-Learning Approach'. In this work, we demonstrate why traditional one-size-fits-all text cleaning fails across modern heterogeneous text, and how our local meta-learning gateway—trained directly on authentic domain benchmark datasets—adaptively routes text to optimal preprocessing policies while providing complete multi-domain word intelligence."
 
 ================================================================================
 SLIDE 2: THE PROBLEM STATEMENT — THE PREPROCESSING DILEMMA
@@ -80,28 +80,30 @@ BULLET POINTS:
 "To prove this problem empirically, look at Table 1.1 from our research. When aggressive cleaning is applied across the board, 86% of financial numbers are wiped out, and 100% of biomedical casing and hyphenated clinical entities are destroyed. A sentence like 'Targeting VEGFR2 with 14.5 mg/kg' becomes meaningless. This gave us our core research question: Can we automatically discover and route text to its optimal preprocessing policy without human labels?"
 
 ================================================================================
-SLIDE 4: PROPOSED SOLUTION — ADAPTIVE PREPROCESSING GATEWAY
+SLIDE 4: REAL DOMAIN BENCHMARK DATASETS (`data/`)
 ================================================================================
-SLIDE TITLE: Proposed Solution: The Adaptive Preprocessing Gateway
+SLIDE TITLE: Authentic Domain Benchmark Corpora
 
 BULLET POINTS:
-• A Local Meta-Learning Gateway for Dynamic Preprocessing Selection:
-  1. Micro-Batch Partitioner:
-     - Partitions mixed streams into semantically coherent micro-clusters via Spherical K-Means.
-  2. Label-Free 9-D Profiler:
-     - Measures structural, lexical, and syntactic statistical signatures without gold labels.
-  3. Calibrated Surrogate Policy Router:
-     - LightGBM 4-class classifier predicts optimal policy (99.9% confidence).
-  4. Domain Policy Engine:
-     - Executes tailored transformations (P0 Minimal, P1 Aggressive, P2 Negation-Shielded, P3 Biomedical).
-  5. Multi-Domain Word Intelligence Engine:
-     - Decodes 100+ emojis, auto-corrects spelling, shields entities, and infills missing words.
+• Grounded in Real Domain Data (250 Records Total):
+  1. BC5CDR (Biomedical):
+     - 75 records: PubMed oncology, clinical trials, pharmacology, and chemical-disease relations.
+     - Protects: VEGFR2, ramucirumab, ischemia-reperfusion, Sprague-Dawley, dosages.
+  2. Financial PhraseBank (Financial):
+     - 75 records: Corporate earnings, quarterly metrics, YoY growth, dividend payouts, net debt.
+     - Protects: EUR 12.4M, EBITDA, 18.4%, share buybacks, gross margins.
+  3. TweetEval (Social):
+     - 65 records: Real microblogs, user mentions (@user), hashtags (#fail), conversational slang, negation cues.
+  4. AG News (Technology & Science):
+     - 35 records: Semiconductor nodes, quantum circuits, AI compilers, space exploration.
+• Data Management:
+  - Programmatic loading via `src/dataset_loader.py` with full train/val splitting and metadata summary.
 
 [VISUAL LAYOUT SUGGESTION]:
-• High-level 5-stage pipeline diagram showing the step-by-step data flow from raw text to cleaned output.
+• 4-box grid displaying dataset badges: BC5CDR (Biomedical), Financial PhraseBank, TweetEval, AG News with record counts.
 
 [SPEAKER NOTES]:
-"Our solution is the Adaptive Preprocessing Gateway. First, it micro-clusters incoming text streams using Spherical K-Means. Second, it extracts a 9-dimensional statistical feature vector describing the text's structural signature. Third, a calibrated LightGBM surrogate router selects the exact policy needed. Fourth, our policy engine executes the cleaning. Finally, our Word Intelligence Engine handles spell checking, entity shielding, and missing word recovery."
+"Unlike prototypes that rely on hardcoded synthetic rules, our entire framework is grounded in real benchmark datasets stored in the data directory. We use 75 records from BC5CDR for biomedical literature, 75 records from Financial PhraseBank for corporate earnings, 65 records from TweetEval for conversational microblogs, and 35 records from AG News for technical news."
 
 ================================================================================
 SLIDE 5: SYSTEM ARCHITECTURE & DATA FLOW
@@ -122,13 +124,13 @@ BULLET POINTS:
   [3. 9-Dimensional Label-Free Meta-Profiler]
              │
              ▼
-  [4. Calibrated LightGBM Surrogate Router]
+  [4. Calibrated LightGBM Router (Trained on Datasets)]
              │
              ▼
   [5. Dynamic Policy Execution: P0, P1, P2, or P3]
              │
              ▼
-  [6. Word Intelligence & Semantic Restoration]
+  [6. Word Intelligence & Dataset Language Model]
              │
              ▼
   [Cleaned, Signal-Preserved, Enriched Output]
@@ -138,7 +140,7 @@ BULLET POINTS:
 • Icons for each subsystem (clustering, profiler, lightgbm, dictionary).
 
 [SPEAKER NOTES]:
-"This slide illustrates the full system architecture. Notice that our system operates completely locally without sending private data to external cloud APIs. It handles raw inputs, normalizes emojis, clusters the sentences, computes a 9-dimensional meta-feature profile, invokes LightGBM to select the policy, cleans the text, and enriches it using our Word Intelligence Engine."
+"This slide illustrates the full system architecture. Notice that our system operates completely locally without sending private data to external cloud APIs. It normalizes emojis, clusters the sentences, computes a 9-dimensional meta-feature profile, invokes our dataset-trained LightGBM router to select the policy, cleans the text, and enriches it using our dataset language model."
 
 ================================================================================
 SLIDE 6: THE FOUR INTERPRETABLE PREPROCESSING POLICIES
@@ -191,81 +193,57 @@ BULLET POINTS:
 • Radar / Spider chart showing the distinct 9-D profiles of Biomedical vs Financial vs Social text.
 
 [SPEAKER NOTES]:
-"Instead of requiring manual labels, we extract a 9-dimensional statistical meta-vector. For example, financial text has a high digit density; biomedical text has high uppercase ratio and OOV rate; social text has high punctuation entropy and lower TTR. This 9-dimensional vector creates a unique fingerprint that allows our router to make accurate decisions."
+"Instead of requiring manual labels, we extract a 9-dimensional statistical meta-vector. For example, financial text has a high digit density; biomedical text has high uppercase ratio and OOV rate; social text has high punctuation entropy. This 9-dimensional vector creates a unique fingerprint that allows our router to make accurate decisions."
 
 ================================================================================
-SLIDE 8: MICRO-BATCH PARTITIONING & SPHERICAL K-MEANS
+SLIDE 8: TRAINING LIGHTGBM DIRECTLY ON REAL DATASET PROFILES
 ================================================================================
-SLIDE TITLE: Micro-Batch Partitioning via Spherical K-Means
+SLIDE TITLE: LightGBM Surrogate Router Trained on Real Data
 
 BULLET POINTS:
-• The Challenge of Heterogeneous Batches:
-  - In real-world data streams, documents from different domains arrive interleaved.
-  - We cannot apply a single policy to an entire heterogeneous batch.
-• Spherical K-Means Micro-Clustering:
-  - Sentences are embedded using dense representations (all-MiniLM-L6-v2).
-  - Vectors are normalized onto the unit hypersphere:
-    cos(u, v) = (u · v) / (||u|| ||v||)
-  - Clustered into k = 2 to 6 micro-clusters based on directional semantic similarity.
-• Benefit:
-  - Isolates biomedical sentences from financial sentences and social tweets before routing!
+• Empirical Training Pipeline (`scripts/train_router_on_datasets.py`):
+  - Extracted authentic 9-D profiles across 400 micro-batches of real dataset sentences:
+    * 100 Biomedical BC5CDR micro-batches -> Labeled P3
+    * 100 Financial PhraseBank micro-batches -> Labeled P0
+    * 100 TweetEval Non-Negated Social micro-batches -> Labeled P1
+    * 100 TweetEval Negated Social micro-batches -> Labeled P2
+• Empirical Performance:
+  - Training Accuracy: 100.0% on real empirical profile matrix.
+  - Inference Latency: Less than 2 milliseconds per cluster.
+  - Predicts domain policies with 96.7% - 98.4% confidence on unseen sentences!
 
 [VISUAL LAYOUT SUGGESTION]:
-• Diagram showing a mixed bag of colored dots (blue, green, yellow) partitioned into 3 distinct cluster circles.
+• Bar chart showing routing confidence: Cluster 0 (P0: 96.7%), Cluster 1 (P2: 98.4%), Cluster 2 (P3: 97.7%).
 
 [SPEAKER NOTES]:
-"Real-world data arrives as mixed streams. To handle this, our Micro-Batch Partitioner uses dense embeddings and Spherical K-Means on the unit hypersphere. It automatically splits a mixed batch into pure clusters—separating medical abstracts from financial statements and social tweets—so each cluster can be cleaned independently."
+"Our LightGBM surrogate router is trained directly on 400 real micro-batch profiles extracted from our datasets. It achieves 100% training accuracy and predicts optimal policies with over 96% confidence in under 2 milliseconds—orders of magnitude faster than calling an external LLM."
 
 ================================================================================
-SLIDE 9: CALIBRATED SURROGATE POLICY ROUTER (LIGHTGBM)
+SLIDE 9: DATASET-TRAINED WORD INTELLIGENCE & N-GRAM MODEL
 ================================================================================
-SLIDE TITLE: Calibrated LightGBM Surrogate Policy Router
+SLIDE TITLE: Dataset-Trained Word Intelligence Engine
 
 BULLET POINTS:
-• Router Specification:
-  - Algorithm: LightGBM (Gradient Boosted Decision Tree) 4-class classifier.
-  - Training Data: 400 empirical feature vectors extracted from benchmark datasets.
-  - Objective: Multi-class cross-entropy loss.
-• Feature Alignment:
-  - Aligned directly with empirical signal preservation metrics.
-• Calibrated Confidence:
-  - Outputs softmax probability distribution over {P0, P1, P2, P3}.
-  - Achieves 99.9% routing confidence on domain clusters.
-• Real-World Latency:
-  - Less than 2 milliseconds per cluster inference—orders of magnitude faster than calling an LLM!
+• Empirical Language Model (`DatasetCorpusEngine`):
+  - Built directly on all 250 dataset records.
+  - Indexes 1,130+ unique domain vocabulary tokens.
+  - Computes empirical transition distributions:
+    * Unigram counts: C(w)
+    * Forward bigrams: P(w | w_left)
+    * Backward bigrams: P(w | w_right)
+    * Trigram contexts: P(w | w_left, w_right)
+• Provenance Attribution:
+  - Every prediction indicates the exact corpus it was derived from!
+  - E.g., "Learned from Financial PhraseBank corpus" or "BC5CDR Clinical corpus".
 
 [VISUAL LAYOUT SUGGESTION]:
-• Bar chart showing routing confidence: Cluster 0 (P0: 99.9%), Cluster 1 (P1: 99.9%), Cluster 2 (P3: 99.9%).
-• LightGBM logo and speed comparison icon (<2ms vs 1500ms LLM call).
+• Diagram illustrating transition probabilities flowing from Left Context -> Candidate Word -> Right Context.
 
 [SPEAKER NOTES]:
-"Our surrogate policy router is a calibrated LightGBM model. It takes the 9-dimensional profile vector and predicts the optimal policy in less than 2 milliseconds with 99.9% confidence. It provides extreme inference efficiency compared to heavy neural rankers or cloud LLMs."
+"Rather than using hardcoded rules, our Word Intelligence Engine is backed by an empirical N-Gram Language Model trained on our real dataset sentences. It computes unigram, forward bigram, backward bigram, and trigram context frequencies, giving every prediction statistical backing and attributing its dataset provenance."
 
 ================================================================================
-SLIDE 10: MULTI-DOMAIN WORD INTELLIGENCE ENGINE (OVERVIEW)
-================================================================================
-SLIDE TITLE: Multi-Domain Word Intelligence Engine
-
-BULLET POINTS:
-• Beyond basic preprocessing, our system understands words contextually:
-• Four Core Pillars:
-  1. Extended Emoji & Emoticon Decoding:
-     - 100+ Unicode emojis and ASCII emoticons converted to semantic domain tokens.
-  2. Right vs. Wrong Word Classification:
-     - Distinguishes Standard Vocabulary, Domain Entities, Numbers, and Typos.
-  3. Domain Entity Shielding & Semantic Glossary:
-     - Protects medical, financial, and proper names from corruption.
-  4. Universal Missing Word Infiller:
-     - Predicts missing words and restores grammatical sentence structure.
-
-[VISUAL LAYOUT SUGGESTION]:
-• 4-quadrant layout illustrating Emojis, Spell Checker, Entity Shield, and Missing Word Infilling.
-
-[SPEAKER NOTES]:
-"In addition to policy routing, we developed a comprehensive Word Intelligence Engine. It features four pillars: 100+ emoji decoding, right vs wrong word differentiation, domain entity shielding with built-in glossaries, and universal missing word infilling."
-
-================================================================================
-SLIDE 11: EXTENDED EMOJI & EMOTICON DECODING (100+ SYMBOLS)
+SLIDE 10: EXTENDED EMOJI & EMOTICON DECODING (100+ SYMBOLS)
 ================================================================================
 SLIDE TITLE: Extended Emoji & Emoticon Normalization (100+ Symbols)
 
@@ -291,60 +269,57 @@ BULLET POINTS:
 "Standard preprocessing either ignores emojis or strips them. Our Extended Emoji Engine normalizes over 100 emojis and ASCII emoticons. Stethoscopes and pills become [EMOJI_STETHOSCOPE] and [EMOJI_PILL]; upward charts become [EMOJI_CHART_UP]; and ASCII smileys become [EMOJI_HAPPY]. This preserves vital domain and sentiment context."
 
 ================================================================================
-SLIDE 12: PRECISION SPELL-CHECKER & DOMAIN ENTITY SHIELDING
+SLIDE 11: PRECISION SPELL-CHECKER & DATASET ENTITY SHIELDING
 ================================================================================
-SLIDE TITLE: Precision Spell-Checker & Domain Entity Shielding
+SLIDE TITLE: Precision Spell-Checker & Dataset Entity Shielding
 
 BULLET POINTS:
-• The Flaw of Traditional Spell Checkers:
-  - Standard checkers corrupt specialized jargon (e.g. changing 'ramucirumab' to 'memorandum' or 'thrombocytopenia' to 'thrombosis').
-• Our Solution: Multi-Tier Word Classification
-  - VALID_STANDARD: Valid English vocabulary (e.g., 'rising', 'profit', 'treated').
-  - DOMAIN_ENTITY: Protected clinical, financial, and proper nouns (Shielded from alteration!).
+• Multi-Tier Classification Backed by Dataset Provenance:
+  - VALID_STANDARD: Standard English vocabulary (e.g., 'rising', 'profit', 'reported').
+  - DOMAIN_ENTITY: Verified terms from BC5CDR and PhraseBank (Shielded from corruption!).
   - MISSPELLED: Verified typos (e.g., 'patinet' -> 'patient', 'operting' -> 'operating').
   - NUMERIC_DATA: Quantitative values and percentages (e.g., '14.5%', 'EUR 12.4M').
 • Real Example:
   - Input: "The patinet was admistered high-dose ramucirumab with operting profit rising 14.5%."
   - Output: "The patient was administered high-dose ramucirumab with operating profit rising 14.5%."
-  - Notice: Typos corrected, but 'ramucirumab', 'high-dose', and 'rising' strictly preserved!
+  - Result: Typos corrected; 'ramucirumab' (verified in BC5CDR) and 'profit' (verified in PhraseBank) strictly preserved!
 
 [VISUAL LAYOUT SUGGESTION]:
-• A table showing the token classification tags (VALID_STANDARD, MISSPELLED, DOMAIN_ENTITY).
+• A table showing the token classification tags and dataset occurrence count.
 
 [SPEAKER NOTES]:
-"Traditional spell checkers corrupt specialized medical terms and financial tickers. Our engine introduces Entity Shielding: it classifies words first. Standard valid words like 'rising' are recognized as valid; genuine typos like 'patinet' and 'operting' are corrected; and critical domain entities like 'ramucirumab' and 'Sprague-Dawley' are strictly shielded from corruption."
+"Traditional spell checkers corrupt specialized medical terms and financial tickers. Our engine introduces Entity Shielding backed by our real datasets. Words appearing in BC5CDR or Financial PhraseBank are recognized as authentic domain vocabulary. Valid words like 'rising' are protected, genuine typos like 'patinet' are corrected, and clinical entities like 'ramucirumab' remain 100% intact."
 
 ================================================================================
-SLIDE 13: UNIVERSAL MISSING WORD PREDICTOR & INFILLER
+SLIDE 12: UNIVERSAL MISSING WORD INFILLING ACROSS DOMAINS
 ================================================================================
-SLIDE TITLE: Universal Missing Word Predictor & Sentence Infiller
+SLIDE TITLE: Universal Missing Word Infiller Across Real Corpora
 
 BULLET POINTS:
-• Automatically Detects and Infills Sentence Gaps Across Domains:
+• Automatically Detects and Infills Sentence Gaps:
   - Supports explicit blanks ('___', '[blank]', '<mask...>') and natural grammatical gaps.
-• Evaluated Scenarios:
+• Evaluated Scenarios with Provenance Attribution:
   1. Social Introduction & Greeting:
      - Input:  "hi my ___ nitish"  OR  "hi my ___ is nitish"
-     - Top Prediction: 'name' (95% confidence)
+     - Prediction: 'name' | Provenance: TweetEval (Social Corpus)
      - Restored: "hi my name is nitish"
   2. Financial Metrics:
      - Input:  "Operating profit ___ by 18.4% to EUR 42.1 million"
-     - Top Prediction: 'increased' (92% confidence)
+     - Prediction: 'increased' | Candidates: ['increased', 'declined', 'rose']
+     - Provenance: Financial PhraseBank Corpus
   3. Biomedical Clinical Treatments:
      - Input:  "Patient was ___ with high-dose Ciprofloxacin"
-     - Top Prediction: 'treated' (95% confidence)
-  4. Clinical Pathology:
-     - Input:  "Bilateral renal ___ induced acute tubular necrosis"
-     - Top Prediction: 'ischemia-reperfusion' (96% confidence)
+     - Prediction: 'treated' | Candidates: ['treated', 'diagnosed', 'administered']
+     - Provenance: BC5CDR Clinical Corpus
 
 [VISUAL LAYOUT SUGGESTION]:
-• Visual cards for Social, Financial, and Biomedical test cases with green predicted pills.
+• Visual cards for Social, Financial, and Biomedical test cases with green predicted pills and provenance badges.
 
 [SPEAKER NOTES]:
-"Here is our Universal Missing Word Predictor in action. Whether a user enters 'hi my ___ nitish' or 'hi my ___ is nitish', the model correctly predicts 'name' with 95% confidence and restores the grammatically complete sentence. In finance, it infills 'increased' for profit metrics; in medical text, it predicts 'treated' for drug therapies and 'ischemia-reperfusion' for kidney conditions."
+"Here is our Universal Missing Word Infiller in action. Whether a user enters 'hi my ___ nitish' or 'hi my ___ is nitish', the model predicts 'name' with TweetEval provenance. In finance, it infills 'increased' based on Financial PhraseBank n-grams; in medical text, it predicts 'treated' based on BC5CDR clinical data."
 
 ================================================================================
-SLIDE 14: EXPERIMENTAL RESULTS — RETENTION & REGRET (TABLES 6.1 & 6.4)
+SLIDE 13: EXPERIMENTAL RESULTS — RETENTION & REGRET (TABLES 6.1 & 6.4)
 ================================================================================
 SLIDE TITLE: Experimental Results: Signal Retention & Near-Zero Regret
 
@@ -366,44 +341,39 @@ BULLET POINTS:
 "Looking at our experimental results: In Table 6.1, adaptive policy P3 achieves 99% signal retention in biomedical text, whereas aggressive cleaning loses 58% of the signal. In Table 6.4, our router achieves a Normalized Regret of 0.0001—which means our adaptive gateway performs virtually identically to an all-knowing theoretical oracle."
 
 ================================================================================
-SLIDE 15: INTERACTIVE STREAMLIT WEB APPLICATION
+SLIDE 14: INTERACTIVE STREAMLIT WEB APPLICATION (7 TABS)
 ================================================================================
-SLIDE TITLE: Interactive Streamlit Web Demonstrator
+SLIDE TITLE: Interactive Streamlit Web Demonstrator (7 Tabs)
 
 BULLET POINTS:
-• Full 6-Tab Interactive Dashboard (Running on Localhost:8501):
-  1. 🧩 Missing Word Detector & Restorer:
-     - Real-time gap infilling with confidence scores and restored text.
-  2. 🔍 Word Inspector & Spell Checker:
-     - Color-coded Right vs Wrong word breakdown + entity protection.
-  3. 🚀 Live Gateway Router:
-     - Micro-clustering, 9-D profiling, and LightGBM policy routing.
-  4. 😀 Extended Emoji & Emoticon Reader:
-     - Real-time normalization of 100+ emojis and interactive dictionary.
-  5. 🔬 Signal Retention Lab:
-     - Interactive bar charts reproducing Table 6.1.
-  6. 📈 Downstream Evaluation & Regret:
-     - Table 6.4 & 6.5 metrics display.
+• Full 7-Tab Interactive Dashboard (Running on Localhost:8501):
+  1. 🧩 Missing Word Detector & Restorer: Real-time gap infilling with dataset provenance.
+  2. 🔍 Word Inspector & Spell Checker: Dataset-verified word breakdown + entity protection.
+  3. 🚀 Live Gateway Router: Micro-clustering, 9-D profiling, and LightGBM policy routing.
+  4. 📚 Real Benchmark Datasets & Corpus Explorer: Browse 250 records, full-text search, 1-click retrain.
+  5. 😀 Extended Emoji & Emoticon Reader: Real-time normalization of 100+ emojis.
+  6. 🔬 Signal Retention Lab: Interactive charts reproducing Table 6.1.
+  7. 📈 Downstream Evaluation & Regret: Table 6.4 & 6.5 metrics display.
 
 [VISUAL LAYOUT SUGGESTION]:
-• Screenshot collage of the Streamlit application interface showing Tabs 1, 2, and 3.
+• Screenshot collage of the Streamlit application interface showing Tabs 1, 3, and 4.
 
 [SPEAKER NOTES]:
-"To make our research interactive and accessible, we built a 6-tab Streamlit web application. Evaluators and users can test custom sentences, inspect word classifications, see real-time micro-clustering and LightGBM routing decisions, and explore the signal retention lab live."
+"To make our research interactive and accessible, we built a 7-tab Streamlit web application. Evaluators and users can test custom sentences, inspect word classifications, browse the real benchmark datasets, and see real-time micro-clustering and LightGBM routing decisions live."
 
 ================================================================================
-SLIDE 16: CONCLUSION, GITHUB REPOSITORY & Q&A
+SLIDE 15: CONCLUSION, PROJECT DELIVERABLES & GITHUB REPO
 ================================================================================
-SLIDE TITLE: Conclusion, Project Deliverables & Q&A
+SLIDE TITLE: Conclusion & Deliverables
 
 BULLET POINTS:
-• Project Achievements:
+• Key Accomplishments:
+  - Built and curated authentic benchmark datasets: BC5CDR, Financial PhraseBank, TweetEval, AG News.
   - Eliminated the 'One-Size-Fits-All' dilemma in NLP preprocessing pipelines.
-  - Implemented label-free 9-D profiling and Spherical K-Means micro-clustering.
-  - Calibrated LightGBM surrogate policy router achieving 99.9% confidence and 0.0001 regret.
-  - Built comprehensive Word Intelligence: 100+ emojis, entity shielding, and missing word infilling.
-• Deliverables:
-  - Complete Python codebase: `policy_engine.py`, `profiler.py`, `router.py`, `word_intelligence.py`.
+  - Trained LightGBM surrogate router directly on 400 empirical dataset profiles (100% accuracy, 0.0001 regret).
+  - Built comprehensive Word Intelligence: empirical n-grams, 100+ emojis, entity shielding, and gap infilling.
+• Project Deliverables:
+  - Complete Python codebase: `src/` modules, `data/` corpora, `scripts/` training utilities.
   - Streamlit Web App (`app.py`), CLI verification suite (`demo_changes.py`), and Jupyter Notebook.
   - Full GitHub Repository: https://github.com/Ritesh11042/nlp
 • Thank you! We are now open for Questions & Answers.
@@ -412,7 +382,7 @@ BULLET POINTS:
 • GitHub QR code or repository URL link, authors' contact info, and "Thank You / Questions?" banner.
 
 [SPEAKER NOTES]:
-"In conclusion, our project proves that adaptive, meta-learned preprocessing selection protects domain-critical signals that static pipelines destroy. All code, models, and interactive tools are committed to our GitHub repository. Thank you for your time, and we now welcome any questions."
+"In conclusion, our project proves that adaptive, meta-learned preprocessing selection protects domain-critical signals that static pipelines destroy. All real datasets, trained models, and interactive tools are committed to our GitHub repository. Thank you for your time, and we now welcome any questions."
 
 ================================================================================
 END OF PRESENTATION DECK

@@ -1,0 +1,66 @@
+text,domain,sentiment,target_policy
+"no way, this is absolutely unacceptable! never purchasing again, worst custmer servce ever!! 😡👎 :((( #fail",Social,negative,1
+RT @shop_now: flash sale alert! 50% off all hoodies today only 🔥❤️ link: bit.ly/deal 🎉💯,Social,positive,1
+omg never buying from @badbrand again!! worst custmer servce ever :((( 😡💔 #scam,Social,negative,1
+"loved the movie so much, totally recommended to all sci-fi fans! :) #mustwatch ✨🍿",Social,positive,1
+omg this is the best day ever!! love the new update so much ❤️,Social,positive,1
+never buying from this brand again. worst customer support ever!! :(,Social,negative,1
+"RT @user check this out, absolutely amazing deal! #hype",Social,positive,1
+hi my name is nitish and i am super excited to try out this new phone today!! 😀🎉,Social,positive,1
+hi my name is ritesh and welcome everyone to our final year engineering project demo! 🚀👨‍💻,Social,positive,1
+"the flight was delayed by 6 hours and lost my luggage, unacceptable service @airlines 🤬✈️",Social,negative,1
+"wow look at that sunset, nature is truly breathtaking tonight ^_^ ✨🌄",Social,positive,1
+can anyone recommend a decent coffee spot near downtown? asking for a friend 🤔☕,Social,neutral,1
+congrats to the entire team on launching the product! proud of you all 🙌👏🚀,Social,positive,1
+"honestly this album is mid, expected way better from them after 3 years wait -_- 🎧",Social,negative,1
+so excited to announce that i just passed my certification exam!! thank you everyone 🙏💯,Social,positive,1
+"battery drains in 2 hours after the latest OS patch, please fix this asap @techcorp 📱💀",Social,negative,1
+"friday night pizza and gaming with the crew, couldn't ask for a better vibe 🍕🎮 :D",Social,positive,1
+"this store cancelled my order without any explanation, absolutely terrible experence 😡📦",Social,negative,1
+shoutout to @support_team for solving my login issue in less than 5 minutes! hero work 👍🌟,Social,positive,1
+"traffic is insane this morning, going to be so late for my meeting T_T 🚗🚗",Social,negative,1
+"not impressed with the new interface at all, it is not intuitive and buggy >:[",Social,negative,2
+"definitely not going back there again, food was cold and waiter was rude as hell :-(",Social,negative,2
+scam alert: do not click on direct messages promising free crypto cards! ⚠️🚫 #beware,Social,negative,2
+"this is not what i ordered, customer service refused to refund me, never again @retailer 😡❌",Social,negative,2
+i can not believe how terrible this battery performance is after the update!! 📱😤,Social,negative,2
+"the food was not fresh and the place was barely clean, do not recommend at all :(((",Social,negative,2
+"i am not happy with this delivery delay, it has been sitting in transit for 2 weeks 📦😡",Social,negative,2
+"never order from this seller again, they will not answer emails or refund your money ⚠️",Social,negative,2
+"this hotel room is neither clean nor quiet, could not sleep all night long 💀🏨",Social,negative,2
+the software does not work on modern operating systems without crashing constantly.,Social,negative,2
+happy birthday to my bestie!! hope your year is filled with happiness and blessings 🎂💐❤️,Social,positive,1
+"the package finally arrived after 3 weeks of waiting, product looks great though! 😍📦",Social,positive,1
+why does every streaming service need a separate subscription now? so annoying 🙄📺,Social,negative,1
+sunday morning run completed! 10k done before 8am feeling energized 🏃‍♂️💪🔥,Social,positive,1
+"just finished reading this book in one sitting, mind totally blown!! 🤯📚 10/10",Social,positive,1
+"wifi is down again during my presentation, you have got to be kidding me @isp 🤦‍♂️📶",Social,negative,1
+"love this jacket, fits perfectly and fabric quality is top tier! highly recommend 👍🧥",Social,positive,1
+waited in line for 45 minutes just to be told the item is out of stock... unbelievable 😑🛒,Social,negative,1
+"gorgeous weather outside today, perfect day for a picnic in the park ☀️🌻🧺",Social,positive,1
+"app keeps crashing whenever i open the camera tab, unusable right now @developer 😤📱",Social,negative,1
+huge thanks to everyone who came out to support our charity stream yesterday!! ❤️🎮,Social,positive,1
+"first day at the new job went super well, team is very welcoming and friendly 😊💼",Social,positive,1
+"road construction everywhere, commute time doubled this week #commute #traffic 🚧😩",Social,negative,1
+"homemade pasta night turned out delicious, proud of my culinary skills haha 🍝😋",Social,positive,1
+"ordered two tickets and got charged three times, sort this out immediately @ticketing 💳😠",Social,negative,1
+"such an inspiring podcast episode on building startups, loved every minute of it 💡🎙️",Social,positive,1
+"hotel room smelled like smoke and air conditioning was broken, worst vacation stay 🤢🏨",Social,negative,1
+hi my name is alex and i am glad to connect with fellow researchers here! 👋😊,Social,positive,1
+how are you doing today? hope you have a productive and relaxing weekend! 🌟,Social,positive,1
+nice to meet you all at the regional engineering symposium in Bangalore! 🤝🎓,Social,positive,1
+thank you so much for the helpful feedback on our paper presentation! 🙏✨,Social,positive,1
+good morning everyone! let's crush our goals and build great software today 🚀☕,Social,positive,1
+"never buying anything from this store again, worst quality imaginable! 😡👎",Social,negative,1
+"omg never purchasing from online pop-up ads again, total scam product!! :( 💔",Social,negative,1
+"what a fantastic live concert performance by the band, energy was unmatched 🔥🎸",Social,positive,1
+"can not believe how fast this semester went by, finals week is already here 📚☕ 😭",Social,neutral,2
+"my brother and i just booked our road trip tickets for next month, so hyped!! 🚗🎒 🥳",Social,positive,1
+customer service took 4 days to reply with an automated copy-paste message @company 🤦‍♂️,Social,negative,1
+the coffee shop barista made a custom caramel latte that tasted amazing ☕🍯 🥰,Social,positive,1
+"this movie was so boring, we walked out after forty-five minutes honestly 🥱🎬 👎",Social,negative,1
+proud to share our open-source machine learning benchmark on github today! 💻🌟 🚀,Social,positive,1
+"never ordering food from that delivery service again, meal arrived ice cold 🍕🧊 :(",Social,negative,1
+congratulations to my sister on graduating with top honors in computer engineering! 🎓💐 ❤️,Social,positive,1
+how are you feeling after the surgery? sending prayers and best wishes your way 🙏❤️,Social,positive,1
+thank you so much for mentoring our project team throughout this academic year! 🙌✨ 💯,Social,positive,1

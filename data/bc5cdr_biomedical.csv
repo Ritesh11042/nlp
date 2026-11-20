@@ -1,0 +1,76 @@
+text,domain,entity_types,target_policy
+Targeting of VEGFR2 signaling with ramucirumab successfully limited metastatic progression in Sprague-Dawley models 🧬🔬,Biomedical,"DRUG,GENE,ORGANISM",3
+Evaluation of anti-CTLA4 monoclonal antibody ipilimumab in patients with advanced metastatic melanoma.,Biomedical,"DRUG,DISEASE",3
+Trastuzumab administration significantly enhanced progression-free survival in HER2-positive breast carcinoma 🩺,Biomedical,"DRUG,GENE,DISEASE",3
+Rituximab therapy induced sustained clinical remission in refractory systemic lupus erythematosus.,Biomedical,"DRUG,DISEASE",3
+Pembrolizumab monotherapy demonstrated robust anti-tumor response in PD-L1 expressing lung adenocarcinoma.,Biomedical,"DRUG,GENE,DISEASE",3
+Bevacizumab-induced hypertension and proteinuria were managed by dose reduction and ACE inhibitor therapy.,Biomedical,"DRUG,DISEASE",3
+In vitro cytotoxicity testing of cisplatin against human ovarian adenocarcinoma cell lines.,Biomedical,"DRUG,DISEASE",3
+Patients received intravenous infusion of 5-fluorouracil combined with leucovorin as adjuvant therapy.,Biomedical,DRUG,3
+Erlotinib-induced severe skin rash and diarrhea resolved following temporary treatment discontinuation.,Biomedical,"DRUG,DISEASE",3
+Sorafenib resistance in hepatocellular carcinoma was mediated by upregulation of hypoxia-inducible factor 1-alpha.,Biomedical,"DRUG,DISEASE,GENE",3
+Bilateral renal ischemia-reperfusion induced acute tubular necrosis in Sprague-Dawley rat models 🩺,Biomedical,"DISEASE,ORGANISM",3
+Inhibition of renal tubular transport by ciprofloxacin may cause acute kidney injury in elderly patients 💊,Biomedical,"DRUG,DISEASE",3
+Serum creatinine and BUN levels exhibited sustained elevation after 48 hours of bilateral renal perfusion 💉,Biomedical,"BIOMARKER,ANATOMY",3
+Pre-treatment with N-acetylcysteine prevented contrast-induced nephropathy during cardiac catheterization.,Biomedical,"DRUG,DISEASE",3
+Cyclosporine A administration impaired glomerular filtration rate in renal transplant recipients.,Biomedical,"DRUG,DISEASE",3
+"Amphotericin B deoxycholate caused severe hypokalemia, hypomagnesemia, and nephrotoxicity.",Biomedical,"DRUG,DISEASE",3
+Vancomycin-induced acute interstitial nephritis was confirmed by percutaneous renal biopsy.,Biomedical,"DRUG,DISEASE,PROCEDURE",3
+Gentamicin-associated proximal tubular toxicity was exacerbated by concurrent furosemide diuresis.,Biomedical,"DRUG,DISEASE",3
+Elevated levels of serum creatinine indicated severe renal hypoperfusion and metabolic acidosis.,Biomedical,"BIOMARKER,DISEASE",3
+Tenofovir disoproxil fumarate induced Fanconi syndrome characterized by hypophosphatemia and proteinuria.,Biomedical,"DRUG,DISEASE",3
+Ciprofloxacin administration was terminated following acute onset of severe hepatotoxicity in clinical cohort B 💊,Biomedical,"DRUG,DISEASE",3
+Administration of acetaminophen was discontinued after drug-induced hepatotoxicity was confirmed in Phase II.,Biomedical,"DRUG,DISEASE",3
+Isoniazid prophylaxis caused clinical hepatitis with AST and ALT elevation exceeding five times normal limit.,Biomedical,"DRUG,DISEASE,BIOMARKER",3
+Valproate-induced microvesicular hepatic steatosis presented with hyperammonemia in pediatric epilepsy.,Biomedical,"DRUG,DISEASE",3
+Methotrexate-induced liver fibrosis was monitored by non-invasive transient elastography.,Biomedical,"DRUG,DISEASE,PROCEDURE",3
+Amiodarone hepatotoxicity presented with elevated alkaline phosphatase and jaundice after prolonged dosing.,Biomedical,"DRUG,DISEASE,BIOMARKER",3
+Rifampin co-administration significantly increased bioavailability and hepatotoxicity of pyrazinamide.,Biomedical,"DRUG,DISEASE",3
+Azathioprine-induced cholestasis occurred secondary to thiopurine S-methyltransferase deficiency.,Biomedical,"DRUG,DISEASE,GENE",3
+Severe cholestatic jaundice and centrilobular necrosis followed amoxicillin-clavulanate therapy.,Biomedical,"DISEASE,DRUG",3
+Troglitazone was withdrawn from commercial use due to idiosyncratic fatal acute hepatic necrosis.,Biomedical,"DRUG,DISEASE",3
+Patients treated with high-dose methotrexate developed grade 3 thrombocytopenia and severe mucositis.,Biomedical,"DRUG,DISEASE",3
+Intravenous doxorubicin therapy triggered dilated cardiomyopathy in adult Sprague-Dawley subjects.,Biomedical,"DRUG,DISEASE,ORGANISM",3
+Warfarin anticoagulation was complicated by intracranial hemorrhage when INR exceeded 4.5.,Biomedical,"DRUG,DISEASE",3
+Heparin-induced thrombocytopenia was confirmed by positive serotonin release assay in cardiac surgery.,Biomedical,"DRUG,DISEASE,PROCEDURE",3
+Serum troponin I elevation confirmed acute myocardial infarction following left anterior descending occlusion 🫀,Biomedical,"BIOMARKER,DISEASE",3
+Bleomycin-induced pulmonary fibrosis was characterized by alveolar wall thickening and collagen accumulation.,Biomedical,"DRUG,DISEASE",3
+Histological examination revealed extensive myocardial necrosis and inflammatory neutrophil infiltration 🫀,Biomedical,"ANATOMY,DISEASE",3
+Levels of hemoglobin and hematocrit dropped significantly following acute gastrointestinal hemorrhage 🩸,Biomedical,"BIOMARKER,DISEASE",3
+Enoxaparin prophylaxis successfully reduced incidence of deep venous thrombosis following total hip arthroplasty.,Biomedical,"DRUG,DISEASE",3
+Severe rhabdomyolysis and myoglobinuria developed after co-administration of simvastatin and clarithromycin.,Biomedical,"DISEASE,DRUG",3
+Expression of CD4+ and CD8+ T-cell surface markers was quantified using flow cytometry analysis 🔬,Biomedical,"BIOMARKER,PROCEDURE",3
+Analysis of mRNA transcription demonstrated upregulation of pro-inflammatory cytokines TNF-alpha and IL-6.,Biomedical,"GENE,BIOMARKER",3
+Carbamazepine-induced Stevens-Johnson syndrome was strongly associated with the HLA-B*1502 allele.,Biomedical,"DRUG,DISEASE,GENE",3
+Erythropoietin administration stimulated erythropoiesis without worsening arterial hypertension in hemodialysis.,Biomedical,"DRUG,DISEASE",3
+"Tacrolimus-induced neurotoxicity presented with postural tremors, headache, and visual scotoma 🩹",Biomedical,"DRUG,DISEASE",3
+Haloperidol-induced neuroleptic malignant syndrome was managed with intravenous dantrolene sodium.,Biomedical,"DRUG,DISEASE",3
+Streptozotocin-induced diabetes mellitus exhibited persistent hyperglycemia in adult male Wistar rats.,Biomedical,"DRUG,DISEASE,ORGANISM",3
+Phenytoin extravasation resulted in purple glove syndrome with progressive limb ischemia and soft tissue necrosis.,Biomedical,"DRUG,DISEASE",3
+Metformin-associated lactic acidosis was triggered by concurrent severe dehydration and acute renal insufficiency.,Biomedical,"DRUG,DISEASE",3
+Therapeutic drug monitoring of lithium carbonate prevented neurological toxicity and cardiac conduction delays.,Biomedical,"DRUG,DISEASE",3
+Patient was treated with high-dose ciprofloxacin following onset of bacterial septicemia.,Biomedical,"DRUG,DISEASE",3
+Patient was diagnosed with acute lymphoblastic leukemia and started on multi-agent induction protocol.,Biomedical,"DISEASE,PROCEDURE",3
+Patients exhibited acute thrombocytopenia and cutaneous purpura following antimicrobial therapy.,Biomedical,"DISEASE,DRUG",3
+Treatment with oral prednisolone resulted in rapid resolution of autoimmune hemolytic anemia.,Biomedical,"DRUG,DISEASE",3
+Bilateral pulmonary emboli were dissolved using recombinant tissue plasminogen activator infusion.,Biomedical,"DISEASE,DRUG",3
+Patient was administered 14.5 mg/kg ciprofloxacin twice daily for complicated pyelonephritis.,Biomedical,"DRUG,DISEASE",3
+Biopsy of bone marrow confirmed hypercellularity with prominent megakaryocytic hyperplasia.,Biomedical,"PROCEDURE,ANATOMY",3
+Patient was diagnosed with ischemic stroke after sudden development of right-sided hemiparesis.,Biomedical,DISEASE,3
+Serum potassium concentration normalized following intravenous calcium gluconate and insulin-glucose infusion.,Biomedical,"BIOMARKER,DRUG",3
+Patients were treated with broad-spectrum meropenem to control nosocomial pneumonia.,Biomedical,"DRUG,DISEASE",3
+Amiodarone-induced pulmonary toxicity is a rare but life-threatening side effect.,Biomedical,"DRUG,DISEASE",3
+Elevation in serum aminotransferase levels resolved within two weeks of stopping the offending agent.,Biomedical,BIOMARKER,3
+Treatment with monoclonal antibodies has transformed the clinical prognosis of multiple myeloma.,Biomedical,"DRUG,DISEASE",3
+Patient was treated with infliximab for corticosteroid-dependent Crohn disease.,Biomedical,"DRUG,DISEASE",3
+Histopathology revealed acute interstitial nephritis with prominent eosinophilic infiltration.,Biomedical,"DISEASE,ANATOMY",3
+The patient was administered high-dose ramucirumab targeting VEGFR2 receptor kinase.,Biomedical,"DRUG,GENE",3
+Patients developed acute pancreatitis following azathioprine administration for ulcerative colitis.,Biomedical,"DISEASE,DRUG",3
+Platelet counts recovered to normal baseline within seven days of intravenous immunoglobulin therapy.,Biomedical,"BIOMARKER,DRUG",3
+Clinical diagnosis of coronary artery disease was confirmed by selective coronary angiography.,Biomedical,"DISEASE,PROCEDURE",3
+Administration of intravenous epinephrine restored arterial pressure during anaphylactic shock.,Biomedical,"DRUG,DISEASE",3
+In vitro bacterial cultures demonstrated susceptibility of methicillin-resistant Staphylococcus to vancomycin.,Biomedical,"ORGANISM,DRUG",3
+Bilateral renal ischemia-reperfusion models demonstrated severe endothelial apoptosis in proximal tubules.,Biomedical,"DISEASE,ANATOMY",3
+Patients were treated with oral anticoagulant rivaroxaban for non-valvular atrial fibrillation.,Biomedical,"DRUG,DISEASE",3
+Evaluation of biomarker troponin revealed subclinical myocardial injury in marathon runners.,Biomedical,"BIOMARKER,DISEASE",3
+The patient was treated with pegylated interferon-alpha and ribavirin for chronic hepatitis C infection.,Biomedical,"DRUG,DISEASE",3

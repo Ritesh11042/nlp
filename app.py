@@ -23,6 +23,7 @@ from src.router import LightGBMSurrogateRouter
 from src.gateway import AdaptivePreprocessingGateway
 from src.benchmarker import SignalRetentionAnalyzer, DownstreamTransformerBenchmarker
 from src.word_intelligence import ExtendedEmojiEngine, WordIntelligenceEngine
+from src.dataset_loader import DatasetLoader
 
 
 st.set_page_config(
@@ -91,6 +92,7 @@ app_mode = st.sidebar.radio(
         "🧩 Missing Word Detector & Restorer",
         "🔍 Word Inspector & Spell Checker",
         "🚀 Live Gateway Router",
+        "📚 Real Benchmark Datasets & Corpus",
         "😀 Extended Emoji & Emoticon Reader",
         "🔬 Signal Retention Lab",
         "📈 Downstream Evaluation & Regret"
@@ -150,7 +152,7 @@ if app_mode == "🧩 Missing Word Detector & Restorer":
             with col_res2:
                 st.markdown("#### 📄 Restored Complete Sentence")
                 st.success(res["restored_sentence"])
-                st.caption(f"Context detected: Left = `'{res['left_context']}'` | Right = `'{res['right_context']}'`")
+                st.caption(f"Context detected: Left = `'{res['left_context']}'` | Right = `'{res['right_context']}'` | 📚 Provenance: **{res.get('provenance', 'Dataset Language Model')}**")
         else:
             st.warning("No missing blank pattern detected. Please include `___`, `[blank]`, or `<mask...>` in your sentence.")
 
@@ -310,7 +312,83 @@ elif app_mode == "🚀 Live Gateway Router":
                     """, unsafe_allow_html=True)
 
 # ==============================================================================
-# TAB 4: EXTENDED EMOJI READER
+# TAB 4: REAL BENCHMARK DATASETS & CORPUS EXPLORER
+# ==============================================================================
+elif app_mode == "📚 Real Benchmark Datasets & Corpus":
+    st.markdown("<div class='main-title'>📚 Real Benchmark Datasets & Corpus Explorer</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub-title'>Explore, search, and profile the authentic domain corpora used to train the LightGBM router and Word Intelligence Engine.</div>", unsafe_allow_html=True)
+
+    summary = DatasetLoader.get_summary()
+
+    m1, m2, m3, m4, m5 = st.columns(5)
+    with m1:
+        st.metric("Total Pool", f"{summary.get('total_records', 250)} texts")
+    with m2:
+        st.metric("BC5CDR Bio", "75 texts", delta="Biomedical")
+    with m3:
+        st.metric("PhraseBank", "75 texts", delta="Financial")
+    with m4:
+        st.metric("TweetEval", "65 texts", delta="Social")
+    with m5:
+        st.metric("AG News", "35 texts", delta="Technical")
+
+    tab_v1, tab_v2, tab_v3 = st.tabs(["📋 Dataset Browser", "🔍 Corpus Full-Text Search", "⚡ 1-Click Router Retraining"])
+
+    with tab_v1:
+        col_d1, col_d2 = st.columns([2, 1])
+        with col_d1:
+            dataset_choice = st.selectbox(
+                "Select Domain Dataset to Inspect:",
+                ["BC5CDR Biomedical", "Financial PhraseBank", "TweetEval Social", "AG News Technical", "Mixed Stream Benchmark"]
+            )
+        with col_d2:
+            st.info("💡 Real dataset files stored in `data/` and loaded dynamically via `src/dataset_loader.py`.")
+
+        df_selected = DatasetLoader.load_dataset(dataset_choice)
+        st.dataframe(df_selected, use_container_width=True, height=280)
+
+        if st.button(f"🔬 Compute Live 9-D Meta-Profile for {dataset_choice}", type="secondary"):
+            with st.spinner("Calculating 9-dimensional statistical meta-vector..."):
+                texts_sample = df_selected["text"].tolist()[:10]
+                prof_vec = gateway.profiler.extract(texts_sample)
+                pred_probs = gateway.router.predict(prof_vec)
+                p_id = pred_probs.argmax()
+
+            col_p1, col_p2 = st.columns([3, 2])
+            with col_p1:
+                st.markdown("##### 📊 9-Dimensional Feature Vector")
+                df_prof = pd.DataFrame({
+                    "Feature": LocalMetaProfiler.FEATURE_NAMES,
+                    "Value": [round(float(v), 4) for v in prof_vec]
+                })
+                st.dataframe(df_prof, use_container_width=True)
+            with col_p2:
+                st.markdown("##### 🎯 Router Prediction")
+                st.success(f"**Predicted Policy:** `{POLICY_NAMES[p_id]}`")
+                st.metric("Routing Confidence", f"{pred_probs.max() * 100:.1f}%")
+
+    with tab_v2:
+        st.markdown("#### 🔎 Search Terms Across All Domain Datasets")
+        search_query = st.text_input("Enter any keyword or entity (e.g. 'ciprofloxacin', 'profit', 'nitish', 'ramucirumab', 'dividend'):", "ramucirumab")
+        if search_query:
+            matches = WordIntelligenceEngine.search_dataset_corpus(search_query, limit=15)
+            if matches:
+                st.success(f"Found {len(matches)} matching occurrences in corpus:")
+                for m in matches:
+                    st.markdown(f"- **[{m['domain']}]** `{m['text']}`")
+            else:
+                st.warning(f"No occurrences found for '{search_query}'.")
+
+    with tab_v3:
+        st.markdown("#### 🚀 Retrain Calibrated LightGBM Router on Real Data")
+        st.markdown("Extracts authentic 9-D profile vectors across 400 micro-batches from `data/` and fits the 4-class LightGBM booster.")
+        if st.button("⚡ Retrain Router on Real Datasets Now", type="primary"):
+            with st.spinner("Extracting 9-D profiles and retraining LightGBM booster..."):
+                gateway.router.train_calibrated_router()
+            st.success("✅ Router successfully retrained on real datasets and saved to `models/surrogate_lgb_router.txt`!")
+
+# ==============================================================================
+# TAB 5: EXTENDED EMOJI READER
 # ==============================================================================
 elif app_mode == "😀 Extended Emoji & Emoticon Reader":
     st.markdown("<div class='main-title'>😀 Extended Emoji & Emoticon Reader</div>", unsafe_allow_html=True)
