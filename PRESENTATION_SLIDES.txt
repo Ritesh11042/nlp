@@ -1,0 +1,419 @@
+================================================================================
+SLIDE PRESENTATION DECK (PLAIN TEXT FORMAT)
+PROJECT TITLE: Adaptive Preprocessing Selection for Domain-Specific NLP Pipelines: A Meta-Learning Approach
+AUTHORS: Ritesh Sharma (ENG25CSE012), Longjam Nirish Singh (ENG25CSE031)
+GITHUB REPOSITORY: https://github.com/Ritesh11042/nlp
+================================================================================
+
+[INSTRUCTIONS FOR USE]:
+- Copy and paste the "SLIDE TITLE" and "SLIDE BULLETS" directly into Microsoft PowerPoint or Google Slides.
+- Use the "VISUAL LAYOUT SUGGESTION" to choose the best layout, icons, and diagrams.
+- Read or practice the "SPEAKER NOTES" to deliver a confident viva or seminar presentation!
+
+================================================================================
+SLIDE 1: TITLE SLIDE
+================================================================================
+SLIDE TITLE: Adaptive Preprocessing Selection for Domain-Specific NLP Pipelines: A Meta-Learning Approach
+
+SUBTITLE: A Local Gateway with Multi-Domain Word Intelligence, Entity Shielding, and Signal Preservation
+
+PRESENTED BY:
+• Ritesh Sharma (USN: ENG25CSE012)
+• Longjam Nirish Singh (USN: ENG25CSE031)
+
+DEPARTMENT: Department of Computer Science & Engineering
+PROJECT REPO: https://github.com/Ritesh11042/nlp
+
+[VISUAL LAYOUT SUGGESTION]:
+• Clean professional title layout with university logo on top.
+• High-tech AI/NLP icons or network diagram in the background.
+
+[SPEAKER NOTES]:
+"Good morning respected evaluators, professors, and peers. Today, we present our final year engineering project: 'Adaptive Preprocessing Selection for Domain-Specific NLP Pipelines: A Meta-Learning Approach'. In this work, we demonstrate why traditional one-size-fits-all text cleaning fails across modern heterogeneous text, and how our local meta-learning gateway adaptively routes text to optimal preprocessing policies while providing complete multi-domain word intelligence."
+
+================================================================================
+SLIDE 2: THE PROBLEM STATEMENT — THE PREPROCESSING DILEMMA
+================================================================================
+SLIDE TITLE: The Problem: The "One-Size-Fits-All" Preprocessing Dilemma
+
+BULLET POINTS:
+• The Standard Industry Habit:
+  - Text cleaning is traditionally treated as a rigid, uniform preliminary chore.
+  - Universal steps: global lowercasing, stopword removal, and punctuation stripping.
+• The Real-World Reality:
+  - Modern NLP models process multi-domain text streams simultaneously:
+    * Biomedical Literature (PubMed, clinical trial notes)
+    * Financial Disclosures (earnings calls, regulatory filings)
+    * Social Media & Microblogs (X/Twitter, reviews, chat logs)
+• The Fundamental Conflict:
+  - What is noise in one domain is critical semantic signal in another!
+  - Case-sensitivity distinguishes proteins from genes; numbers dictate financial solvency; emojis express sentiment.
+
+[VISUAL LAYOUT SUGGESTION]:
+• 3 columns showing Biomedical text, Financial text, and Social Media text with contrasting characteristics.
+• A large red "X" over a single global preprocessing funnel.
+
+[SPEAKER NOTES]:
+"In standard NLP pipelines, text preprocessing is treated as a routine chore—practitioners universally lowercase words, strip punctuation, and drop stopwords. But text is no longer homogeneous. In biomedical text, casing separates genes from proteins; in finance, numbers determine whether a company made a profit or loss; in social text, emojis convey the entire sentiment. Applying one uniform cleaning pipeline to all domains is fundamentally flawed."
+
+================================================================================
+SLIDE 3: MOTIVATION — EMPIRICAL PROOF OF SIGNAL DESTRUCTION
+================================================================================
+SLIDE TITLE: Motivation: Empirical Proof of Signal Destruction (Table 1.1)
+
+BULLET POINTS:
+• What Happens When You Apply Aggressive Social Cleaning (P1) Globally?
+  - 86% of Financial Numbers are Lost: "$12.4M", "18.4%" are wiped out.
+  - 100% of Biomedical Case is Lost: "IL-2", "VEGFR2" are lowercased and obscured.
+  - 100% of Hyphenated Chemical Entities are Broken: "Sprague-Dawley", "ischemia-reperfusion" are split.
+  - Negation Inversion: "not good" becomes "good" when stopwords/punctuations are stripped naively.
+• The Trade-off:
+  - Minimal cleaning retains too much noise in social feeds.
+  - Aggressive cleaning destroys critical domain knowledge.
+• Our Question: Can we predict and route the optimal preprocessing policy per text cluster without human labels?
+
+[VISUAL LAYOUT SUGGESTION]:
+• Display a summary table of Table 1.1 with red highlights on the 86% and 100% loss metrics.
+• Before-and-after text box: "Targeting VEGFR2 with 14.5 mg/kg" -> "targeting vegfr with mg kg" (Lost!).
+
+[SPEAKER NOTES]:
+"To prove this problem empirically, look at Table 1.1 from our research. When aggressive cleaning is applied across the board, 86% of financial numbers are wiped out, and 100% of biomedical casing and hyphenated clinical entities are destroyed. A sentence like 'Targeting VEGFR2 with 14.5 mg/kg' becomes meaningless. This gave us our core research question: Can we automatically discover and route text to its optimal preprocessing policy without human labels?"
+
+================================================================================
+SLIDE 4: PROPOSED SOLUTION — ADAPTIVE PREPROCESSING GATEWAY
+================================================================================
+SLIDE TITLE: Proposed Solution: The Adaptive Preprocessing Gateway
+
+BULLET POINTS:
+• A Local Meta-Learning Gateway for Dynamic Preprocessing Selection:
+  1. Micro-Batch Partitioner:
+     - Partitions mixed streams into semantically coherent micro-clusters via Spherical K-Means.
+  2. Label-Free 9-D Profiler:
+     - Measures structural, lexical, and syntactic statistical signatures without gold labels.
+  3. Calibrated Surrogate Policy Router:
+     - LightGBM 4-class classifier predicts optimal policy (99.9% confidence).
+  4. Domain Policy Engine:
+     - Executes tailored transformations (P0 Minimal, P1 Aggressive, P2 Negation-Shielded, P3 Biomedical).
+  5. Multi-Domain Word Intelligence Engine:
+     - Decodes 100+ emojis, auto-corrects spelling, shields entities, and infills missing words.
+
+[VISUAL LAYOUT SUGGESTION]:
+• High-level 5-stage pipeline diagram showing the step-by-step data flow from raw text to cleaned output.
+
+[SPEAKER NOTES]:
+"Our solution is the Adaptive Preprocessing Gateway. First, it micro-clusters incoming text streams using Spherical K-Means. Second, it extracts a 9-dimensional statistical feature vector describing the text's structural signature. Third, a calibrated LightGBM surrogate router selects the exact policy needed. Fourth, our policy engine executes the cleaning. Finally, our Word Intelligence Engine handles spell checking, entity shielding, and missing word recovery."
+
+================================================================================
+SLIDE 5: SYSTEM ARCHITECTURE & DATA FLOW
+================================================================================
+SLIDE TITLE: System Architecture & Processing Workflow
+
+BULLET POINTS:
+• Pipeline Lifecycle:
+  [Heterogeneous Input Stream]
+             │
+             ▼
+  [1. Extended Emoji Engine (100+ Emojis)]
+             │
+             ▼
+  [2. MiniLM Embedder + Spherical K-Means (k=2..6)]
+             │
+             ▼
+  [3. 9-Dimensional Label-Free Meta-Profiler]
+             │
+             ▼
+  [4. Calibrated LightGBM Surrogate Router]
+             │
+             ▼
+  [5. Dynamic Policy Execution: P0, P1, P2, or P3]
+             │
+             ▼
+  [6. Word Intelligence & Semantic Restoration]
+             │
+             ▼
+  [Cleaned, Signal-Preserved, Enriched Output]
+
+[VISUAL LAYOUT SUGGESTION]:
+• Full block architecture diagram with arrows showing data flow between modules.
+• Icons for each subsystem (clustering, profiler, lightgbm, dictionary).
+
+[SPEAKER NOTES]:
+"This slide illustrates the full system architecture. Notice that our system operates completely locally without sending private data to external cloud APIs. It handles raw inputs, normalizes emojis, clusters the sentences, computes a 9-dimensional meta-feature profile, invokes LightGBM to select the policy, cleans the text, and enriches it using our Word Intelligence Engine."
+
+================================================================================
+SLIDE 6: THE FOUR INTERPRETABLE PREPROCESSING POLICIES
+================================================================================
+SLIDE TITLE: The Four Domain-Specific Preprocessing Policies
+
+BULLET POINTS:
+• Policy P0: Minimal / Technical Policy
+  - Strips URLs; normalizes whitespace.
+  - Retains: Case, punctuation, numeric tokens, financial codes.
+  - Best for: Financial logs, code-mixed text, technical documentation.
+• Policy P1: Aggressive Social Policy
+  - Strips @mentions, #hashtags, punctuation, character elongations ("soooo" -> "soo").
+  - Lowercases all tokens.
+  - Best for: Informal microblogs, Twitter feeds, spam-heavy chat.
+• Policy P2: Negation-Shielded Policy
+  - Detects negation cues ("not", "never", "cannot").
+  - Prefixes affected tokens with 'NOT_' ("NOT_happy", "NOT_acceptable").
+  - Best for: Sentiment analysis, customer review classification.
+• Policy P3: Biomedical Entity-Preserving Policy
+  - Decodes medical emojis into tokens ([EMOJI_DNA], [EMOJI_PILL]).
+  - Strictly preserves clinical casing, hyphenated compounds, and dosages.
+  - Best for: Electronic Health Records, PubMed abstracts, clinical trials.
+
+[VISUAL LAYOUT SUGGESTION]:
+• 2x2 grid representing P0, P1, P2, and P3 with distinctive colored badges matching the Streamlit app.
+
+[SPEAKER NOTES]:
+"We formalize four domain-specific policies. P0 is Minimal Technical, keeping numbers and case. P1 is Aggressive Social, cleaning hashtags, mentions, and elongated words. P2 is Negation-Shielded, which attaches a 'NOT_' prefix to prevent sentiment inversion. P3 is Biomedical Entity Preserving, shielding clinical drug names, hyphenated anatomy, and dosages."
+
+================================================================================
+SLIDE 7: LABEL-FREE 9-DIMENSIONAL META-PROFILER
+================================================================================
+SLIDE TITLE: Label-Free 9-D Profiler: Capturing Structural Signatures
+
+BULLET POINTS:
+• How do we know what domain a text belongs to without human labels?
+• We compute a 9-dimensional statistical meta-vector:
+  1. Type-Token Ratio (TTR): Measures lexical diversity (|V| / N).
+  2. Uppercase Character Ratio: Detects acronym density vs lowercase chatter.
+  3. Digit Density: Identifies quantitative financial data and clinical dosages.
+  4. Punctuation Entropy: Shannon entropy of punctuation distributions.
+  5. Part-of-Speech (POS) Entropy: Syntactic complexity of sentence structures.
+  6. Mean Dependency Depth: Grammatical depth of dependency parse trees.
+  7. Out-of-Vocabulary (OOV) Rate: Rare or specialized domain jargon density.
+  8. BPE Fragmentation Ratio: Subword tokenizer fragmentations per word.
+  9. Embedding Dispersion: Variance of sentence vectors around cluster centroid.
+
+[VISUAL LAYOUT SUGGESTION]:
+• Radar / Spider chart showing the distinct 9-D profiles of Biomedical vs Financial vs Social text.
+
+[SPEAKER NOTES]:
+"Instead of requiring manual labels, we extract a 9-dimensional statistical meta-vector. For example, financial text has a high digit density; biomedical text has high uppercase ratio and OOV rate; social text has high punctuation entropy and lower TTR. This 9-dimensional vector creates a unique fingerprint that allows our router to make accurate decisions."
+
+================================================================================
+SLIDE 8: MICRO-BATCH PARTITIONING & SPHERICAL K-MEANS
+================================================================================
+SLIDE TITLE: Micro-Batch Partitioning via Spherical K-Means
+
+BULLET POINTS:
+• The Challenge of Heterogeneous Batches:
+  - In real-world data streams, documents from different domains arrive interleaved.
+  - We cannot apply a single policy to an entire heterogeneous batch.
+• Spherical K-Means Micro-Clustering:
+  - Sentences are embedded using dense representations (all-MiniLM-L6-v2).
+  - Vectors are normalized onto the unit hypersphere:
+    cos(u, v) = (u · v) / (||u|| ||v||)
+  - Clustered into k = 2 to 6 micro-clusters based on directional semantic similarity.
+• Benefit:
+  - Isolates biomedical sentences from financial sentences and social tweets before routing!
+
+[VISUAL LAYOUT SUGGESTION]:
+• Diagram showing a mixed bag of colored dots (blue, green, yellow) partitioned into 3 distinct cluster circles.
+
+[SPEAKER NOTES]:
+"Real-world data arrives as mixed streams. To handle this, our Micro-Batch Partitioner uses dense embeddings and Spherical K-Means on the unit hypersphere. It automatically splits a mixed batch into pure clusters—separating medical abstracts from financial statements and social tweets—so each cluster can be cleaned independently."
+
+================================================================================
+SLIDE 9: CALIBRATED SURROGATE POLICY ROUTER (LIGHTGBM)
+================================================================================
+SLIDE TITLE: Calibrated LightGBM Surrogate Policy Router
+
+BULLET POINTS:
+• Router Specification:
+  - Algorithm: LightGBM (Gradient Boosted Decision Tree) 4-class classifier.
+  - Training Data: 400 empirical feature vectors extracted from benchmark datasets.
+  - Objective: Multi-class cross-entropy loss.
+• Feature Alignment:
+  - Aligned directly with empirical signal preservation metrics.
+• Calibrated Confidence:
+  - Outputs softmax probability distribution over {P0, P1, P2, P3}.
+  - Achieves 99.9% routing confidence on domain clusters.
+• Real-World Latency:
+  - Less than 2 milliseconds per cluster inference—orders of magnitude faster than calling an LLM!
+
+[VISUAL LAYOUT SUGGESTION]:
+• Bar chart showing routing confidence: Cluster 0 (P0: 99.9%), Cluster 1 (P1: 99.9%), Cluster 2 (P3: 99.9%).
+• LightGBM logo and speed comparison icon (<2ms vs 1500ms LLM call).
+
+[SPEAKER NOTES]:
+"Our surrogate policy router is a calibrated LightGBM model. It takes the 9-dimensional profile vector and predicts the optimal policy in less than 2 milliseconds with 99.9% confidence. It provides extreme inference efficiency compared to heavy neural rankers or cloud LLMs."
+
+================================================================================
+SLIDE 10: MULTI-DOMAIN WORD INTELLIGENCE ENGINE (OVERVIEW)
+================================================================================
+SLIDE TITLE: Multi-Domain Word Intelligence Engine
+
+BULLET POINTS:
+• Beyond basic preprocessing, our system understands words contextually:
+• Four Core Pillars:
+  1. Extended Emoji & Emoticon Decoding:
+     - 100+ Unicode emojis and ASCII emoticons converted to semantic domain tokens.
+  2. Right vs. Wrong Word Classification:
+     - Distinguishes Standard Vocabulary, Domain Entities, Numbers, and Typos.
+  3. Domain Entity Shielding & Semantic Glossary:
+     - Protects medical, financial, and proper names from corruption.
+  4. Universal Missing Word Infiller:
+     - Predicts missing words and restores grammatical sentence structure.
+
+[VISUAL LAYOUT SUGGESTION]:
+• 4-quadrant layout illustrating Emojis, Spell Checker, Entity Shield, and Missing Word Infilling.
+
+[SPEAKER NOTES]:
+"In addition to policy routing, we developed a comprehensive Word Intelligence Engine. It features four pillars: 100+ emoji decoding, right vs wrong word differentiation, domain entity shielding with built-in glossaries, and universal missing word infilling."
+
+================================================================================
+SLIDE 11: EXTENDED EMOJI & EMOTICON DECODING (100+ SYMBOLS)
+================================================================================
+SLIDE TITLE: Extended Emoji & Emoticon Normalization (100+ Symbols)
+
+BULLET POINTS:
+• Comprehensive Multi-Domain Symbol Support:
+  - ASCII Emoticons:
+    :)  :-)  :D  xD  XD  ;)  :(  :'(  :P  :/  :-(  <3  </3  -_-  T_T  ^_^  \o/
+  - Social & Emotional Unicode:
+    😀 😂 🤣 😊 🥰 😎 😭 😡 🤬 🤯 😱 🤔 🔥 💯 ✨ 🎉 👍 👎 👏 🙏
+  - Biomedical Healthcare Symbols:
+    🩺 [EMOJI_STETHOSCOPE]    💊 [EMOJI_PILL]       💉 [EMOJI_SYRINGE]
+    🧬 [EMOJI_DNA]            🔬 [EMOJI_MICROSCOPE] 🏥 [EMOJI_HOSPITAL]
+    🩹 [EMOJI_BANDAGE]        🩸 [EMOJI_BLOOD]      🫁 [EMOJI_LUNGS]
+  - Financial & Economic Symbols:
+    💰 [EMOJI_MONEY_BAG]      💵 [EMOJI_DOLLAR]     📈 [EMOJI_CHART_UP]
+    📉 [EMOJI_CHART_DOWN]     💳 [EMOJI_CARD]       🪙 [EMOJI_COIN]
+• Result: Preserves emotional and domain semantics without polluting vocabulary!
+
+[VISUAL LAYOUT SUGGESTION]:
+• 2-column display: Left shows raw emojis/emoticons; Right shows their normalized semantic tokens.
+
+[SPEAKER NOTES]:
+"Standard preprocessing either ignores emojis or strips them. Our Extended Emoji Engine normalizes over 100 emojis and ASCII emoticons. Stethoscopes and pills become [EMOJI_STETHOSCOPE] and [EMOJI_PILL]; upward charts become [EMOJI_CHART_UP]; and ASCII smileys become [EMOJI_HAPPY]. This preserves vital domain and sentiment context."
+
+================================================================================
+SLIDE 12: PRECISION SPELL-CHECKER & DOMAIN ENTITY SHIELDING
+================================================================================
+SLIDE TITLE: Precision Spell-Checker & Domain Entity Shielding
+
+BULLET POINTS:
+• The Flaw of Traditional Spell Checkers:
+  - Standard checkers corrupt specialized jargon (e.g. changing 'ramucirumab' to 'memorandum' or 'thrombocytopenia' to 'thrombosis').
+• Our Solution: Multi-Tier Word Classification
+  - VALID_STANDARD: Valid English vocabulary (e.g., 'rising', 'profit', 'treated').
+  - DOMAIN_ENTITY: Protected clinical, financial, and proper nouns (Shielded from alteration!).
+  - MISSPELLED: Verified typos (e.g., 'patinet' -> 'patient', 'operting' -> 'operating').
+  - NUMERIC_DATA: Quantitative values and percentages (e.g., '14.5%', 'EUR 12.4M').
+• Real Example:
+  - Input: "The patinet was admistered high-dose ramucirumab with operting profit rising 14.5%."
+  - Output: "The patient was administered high-dose ramucirumab with operating profit rising 14.5%."
+  - Notice: Typos corrected, but 'ramucirumab', 'high-dose', and 'rising' strictly preserved!
+
+[VISUAL LAYOUT SUGGESTION]:
+• A table showing the token classification tags (VALID_STANDARD, MISSPELLED, DOMAIN_ENTITY).
+
+[SPEAKER NOTES]:
+"Traditional spell checkers corrupt specialized medical terms and financial tickers. Our engine introduces Entity Shielding: it classifies words first. Standard valid words like 'rising' are recognized as valid; genuine typos like 'patinet' and 'operting' are corrected; and critical domain entities like 'ramucirumab' and 'Sprague-Dawley' are strictly shielded from corruption."
+
+================================================================================
+SLIDE 13: UNIVERSAL MISSING WORD PREDICTOR & INFILLER
+================================================================================
+SLIDE TITLE: Universal Missing Word Predictor & Sentence Infiller
+
+BULLET POINTS:
+• Automatically Detects and Infills Sentence Gaps Across Domains:
+  - Supports explicit blanks ('___', '[blank]', '<mask...>') and natural grammatical gaps.
+• Evaluated Scenarios:
+  1. Social Introduction & Greeting:
+     - Input:  "hi my ___ nitish"  OR  "hi my ___ is nitish"
+     - Top Prediction: 'name' (95% confidence)
+     - Restored: "hi my name is nitish"
+  2. Financial Metrics:
+     - Input:  "Operating profit ___ by 18.4% to EUR 42.1 million"
+     - Top Prediction: 'increased' (92% confidence)
+  3. Biomedical Clinical Treatments:
+     - Input:  "Patient was ___ with high-dose Ciprofloxacin"
+     - Top Prediction: 'treated' (95% confidence)
+  4. Clinical Pathology:
+     - Input:  "Bilateral renal ___ induced acute tubular necrosis"
+     - Top Prediction: 'ischemia-reperfusion' (96% confidence)
+
+[VISUAL LAYOUT SUGGESTION]:
+• Visual cards for Social, Financial, and Biomedical test cases with green predicted pills.
+
+[SPEAKER NOTES]:
+"Here is our Universal Missing Word Predictor in action. Whether a user enters 'hi my ___ nitish' or 'hi my ___ is nitish', the model correctly predicts 'name' with 95% confidence and restores the grammatically complete sentence. In finance, it infills 'increased' for profit metrics; in medical text, it predicts 'treated' for drug therapies and 'ischemia-reperfusion' for kidney conditions."
+
+================================================================================
+SLIDE 14: EXPERIMENTAL RESULTS — RETENTION & REGRET (TABLES 6.1 & 6.4)
+================================================================================
+SLIDE TITLE: Experimental Results: Signal Retention & Near-Zero Regret
+
+BULLET POINTS:
+• Table 6.1: Signal Retention Rate by Policy
+  - Biomedical Stream: P3 achieves 0.99 vs P1's 0.42 (57% signal saved!)
+  - Financial Stream:  P0 achieves 0.98 vs P1's 0.54 (44% signal saved!)
+  - Social Stream:     P1 achieves 0.96 (optimal noise reduction)
+• Table 6.4: Downstream Proxy Evaluation & Regret Analysis
+  - Normalized Regret: 0.0001 (Virtually ZERO regret compared to oracle policy selection!)
+  - Mean Spearman Rank Correlation: 0.7379 (Strong ranking alignment across representations)
+• Takeaway:
+  - Adaptive routing achieves the upper bound of signal preservation across all domains simultaneously!
+
+[VISUAL LAYOUT SUGGESTION]:
+• Side-by-side display of Table 6.1 retention bar chart and Table 6.4 metrics (0.0001 regret badge).
+
+[SPEAKER NOTES]:
+"Looking at our experimental results: In Table 6.1, adaptive policy P3 achieves 99% signal retention in biomedical text, whereas aggressive cleaning loses 58% of the signal. In Table 6.4, our router achieves a Normalized Regret of 0.0001—which means our adaptive gateway performs virtually identically to an all-knowing theoretical oracle."
+
+================================================================================
+SLIDE 15: INTERACTIVE STREAMLIT WEB APPLICATION
+================================================================================
+SLIDE TITLE: Interactive Streamlit Web Demonstrator
+
+BULLET POINTS:
+• Full 6-Tab Interactive Dashboard (Running on Localhost:8501):
+  1. 🧩 Missing Word Detector & Restorer:
+     - Real-time gap infilling with confidence scores and restored text.
+  2. 🔍 Word Inspector & Spell Checker:
+     - Color-coded Right vs Wrong word breakdown + entity protection.
+  3. 🚀 Live Gateway Router:
+     - Micro-clustering, 9-D profiling, and LightGBM policy routing.
+  4. 😀 Extended Emoji & Emoticon Reader:
+     - Real-time normalization of 100+ emojis and interactive dictionary.
+  5. 🔬 Signal Retention Lab:
+     - Interactive bar charts reproducing Table 6.1.
+  6. 📈 Downstream Evaluation & Regret:
+     - Table 6.4 & 6.5 metrics display.
+
+[VISUAL LAYOUT SUGGESTION]:
+• Screenshot collage of the Streamlit application interface showing Tabs 1, 2, and 3.
+
+[SPEAKER NOTES]:
+"To make our research interactive and accessible, we built a 6-tab Streamlit web application. Evaluators and users can test custom sentences, inspect word classifications, see real-time micro-clustering and LightGBM routing decisions, and explore the signal retention lab live."
+
+================================================================================
+SLIDE 16: CONCLUSION, GITHUB REPOSITORY & Q&A
+================================================================================
+SLIDE TITLE: Conclusion, Project Deliverables & Q&A
+
+BULLET POINTS:
+• Project Achievements:
+  - Eliminated the 'One-Size-Fits-All' dilemma in NLP preprocessing pipelines.
+  - Implemented label-free 9-D profiling and Spherical K-Means micro-clustering.
+  - Calibrated LightGBM surrogate policy router achieving 99.9% confidence and 0.0001 regret.
+  - Built comprehensive Word Intelligence: 100+ emojis, entity shielding, and missing word infilling.
+• Deliverables:
+  - Complete Python codebase: `policy_engine.py`, `profiler.py`, `router.py`, `word_intelligence.py`.
+  - Streamlit Web App (`app.py`), CLI verification suite (`demo_changes.py`), and Jupyter Notebook.
+  - Full GitHub Repository: https://github.com/Ritesh11042/nlp
+• Thank you! We are now open for Questions & Answers.
+
+[VISUAL LAYOUT SUGGESTION]:
+• GitHub QR code or repository URL link, authors' contact info, and "Thank You / Questions?" banner.
+
+[SPEAKER NOTES]:
+"In conclusion, our project proves that adaptive, meta-learned preprocessing selection protects domain-critical signals that static pipelines destroy. All code, models, and interactive tools are committed to our GitHub repository. Thank you for your time, and we now welcome any questions."
+
+================================================================================
+END OF PRESENTATION DECK
+================================================================================
