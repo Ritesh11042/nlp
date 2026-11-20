@@ -37,6 +37,7 @@ print("3. MISSING WORD PREDICTION (SOCIAL, MEDICAL & FINANCIAL FIELDS)")
 print("=" * 75)
 test_blanks = [
     ("Social Greeting", "hi my ___ is nitish"),
+    ("Social Greeting (Direct Gap)", "hi my ___ nitish"),
     ("Social Slang", "omg never ___ from this store again!! :("),
     ("Financial Metric", "Operating profit ___ by 18.4% to EUR 42.1 million"),
     ("Biomedical Clinical", "Patient was ___ with high-dose Ciprofloxacin"),
